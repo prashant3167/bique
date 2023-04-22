@@ -1,5 +1,8 @@
 
 # Bique
+<p align="center">
+  <img src="./assets/bique.png" width="200" height="200"/>
+</p>
 
 Bique aims to empower individuals with the tools and resources needed to achieve financial freedom by simplifying financial management and providing expert financial advice through our user-friendly interface offering a personalized yet seamless experience. Encompassing a variety of tasks like sharing profile with family members, defining combined budgetary limits, competing to achieve financial goals, etc. We aspire to make financial management for our users effortless and enjoyable. With all these functionalities, we intend to be the leader in financial advisory, management and assistance in the market for individuals and families. BIQUE does not only understand ESG (environmental, social and governance) as one of the most crucial goals, often supported by investors as well as the customers for our company’s success but also shall constantly strive towards meeting them.
 
