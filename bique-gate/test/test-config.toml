@@ -1,0 +1,21 @@
+
+KAFKA_REST_URL = "dp_kafka_rest_dev.internal.dev.licious.app"
+FLASK_SERVICE_PORT = 8000
+
+[[URL_MAPPING]]
+route = "/ingest/bank"
+method = "POST"
+topic="account"
+endpoint = "kafka"
+auth = "Token"
+token_head = "X-AUTH"
+token_key = "BRANCH_TOKEN"
+
+[[URL_MAPPING]]
+route = "/ingest/advsior"
+method = "POST"
+topic="advisor"
+endpoint = "kafka"
+auth= "Basic"
+user_env = "CT_USER"
+pass_env = "CT_PASS"
