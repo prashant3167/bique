@@ -181,7 +181,7 @@ passsword = "bdm"
   welcome to bique-gat
 ```
 
-<b>🥳 Bique gateway is up and ready to recive your requests</b>
+<b>🥳 Bique gateway is up and ready to receive your requests</b>
 
 ## Contributors
 
