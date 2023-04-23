@@ -1,27 +1,47 @@
 import json
 import random
 from datetime import date, datetime, timedelta
+import os
+import uuid
 
 # Set up some constants for generating the data
-ACCOUNTS = {'Zyad':"123456789", 'Prashant':"234567890", 'Rishika':"345678901"}
-CATEGORIES = ["groceries", "entertainment", "shopping", "utilities", "travel"]
-DATES = ["13-04-2023", "14-04-2023", "15-04-2023", "16-04-2023"]
-MIN_AMOUNT = 1.0
+ACCOUNTS = []
+MIN_AMOUNT = 1000.0
 MAX_AMOUNT = 100000.0
+start_date = datetime(2023, 3, 1)
+end_date = datetime(2023, 3, 31)
+BANK = 'Revolut'
 
+home_dir = os.path.expanduser('~')
+file_path = os.path.join(home_dir, 'Desktop/upc/big-data-management/project/bique/accounts.json')
+
+# Collecting the accounts belonging to the specific bank
+with open(file_path, 'r') as f:
+    all_accounts = json.load(f)
+    for acc in all_accounts:
+        for bank in acc['accounts']:
+            if bank['bank'] == BANK:
+                acc_info = {'name':acc['name'], 'id':acc['id'], 'accounts':bank}
+                ACCOUNTS.append(acc_info)
+
+CATEGORIES = ["groceries", "entertainment", "shopping", "utilities", "travel", "food delivery", "transfer", "income", "refund", "other"]
 
 # Generate a random transaction object
-def generate_transaction(user_name):
+def generate_transaction(user_name, balance):
     transaction = {}
-    transaction['id'] = [ACCOUNTS.get(name) for name in ACCOUNTS if name == user_name][0]
-    transaction['date'] = random.choice(CATEGORIES)
-    transaction['bookingDateTime'] = random.choice(DATES)
-    transaction['valueDateTime'] = datetime.strftime(datetime.strptime(transaction['bookingDateTime'], "%d-%m-%Y") + timedelta(days = 1), "%d-%m-%Y")
+    transaction['id'] = str(uuid.uuid4())
+    delta = end_date - start_date
+    random_second = random.randint(0, delta.total_seconds())
+    tr_date = start_date + timedelta(seconds=random_second)
+    transaction['date'] = str(tr_date)
+    transaction['bookingDateTime'] = transaction['date']
+    transaction['valueDateTime'] = str(tr_date + timedelta(hours = 6))
     transaction['status'] = "BOOKED"
-    transaction['amount'] = 0.0 ### when generating the data, we need to take into consideration whether it is debited or credited (in this case we also need to check if it is less than the balance) because this affects the family code
-    transaction['currency'] = chr(8364) ### supposedly the euro sign
+    transaction['balance'] = {'type' : 'INTERIM_BOOKED', 'balanceAmount' : {'amount': balance, 'currency': 'Euro'}}
+    transaction['amount'] = round(random.uniform(balance/-2, balance/2),2) ### when generating the data, we need to take into consideration whether it is debited or credited (in this case we also need to check if it is less than the balance) because this affects the family code
+    transaction['currency'] =  transaction['balance']['balanceAmount']['currency']
     transaction['transactionAmount']= {'amount':transaction['amount'], 'currency':transaction['currency']}
-    transaction['description'] = "random description"
+    transaction['description'] = random.choice(CATEGORIES)
     transaction['transactionInformation'] = [transaction['description']]
     """
     For the family code, there are two potential values:
@@ -40,38 +60,36 @@ def generate_transaction(user_name):
     else:
         transaction['isoBankTransactionCode']['familyCode']['code'] = 'RCDT'
         transaction['isoBankTransactionCode']['familyCode']['name'] = 'Received Credit Transfers'  
-    transaction['proprietaryBankTransactionCode'] = {'code': '', 'issuer':''} ### Issuer is the name of the bank and for the code multiple values are possible: CARD_PAYMENT, TRANSFER, TOPUP, EXCHANGE, CARD_REFUND
-    transaction['balance'] = {'type' : '', 'balanceAmount' : {'amount': 0.0, 'currency': ''}}
-    transaction['merchant'] = {'merchantName' :'', 'merchantGroup':''} ### Information about the other party
-    transaction['enrichment'] = {'categorisation': {'categories': '', 'source': ''}, 'transactionHash':{'hash': ''}, 'cleansedDescription':transaction['description']} ### 
-    transaction['supplementaryData'] = {'UserComments':''} ### Transfers  description, can be general text
+    transaction['proprietaryBankTransactionCode'] = {'code': '', 'issuer':BANK} ### Issuer is the name of the bank and for the code multiple values are possible: CARD_PAYMENT, TRANSFER, INCOME, REFUND, OTHER
+    if transaction['description'] == "transfer":
+        transaction['proprietaryBankTransactionCode']['code'] = "TRANSFER"
+    elif transaction['description'] == "income":
+        transaction['proprietaryBankTransactionCode']['code'] = "INCOME"
+    elif transaction['description'] == "refund":
+        transaction['proprietaryBankTransactionCode']['code'] = "REFUND"
+    elif transaction['description'] == "other":
+        transaction['proprietaryBankTransactionCode']['code'] = "OTHER"
+    else:
+        transaction['proprietaryBankTransactionCode']['code'] = "CARD_PAYMENT"
 
     return transaction
 
 # Generate a list of random transactions
 def generate_transactions(user_name, num_transactions):
+    BALANCE = round(random.uniform(MIN_AMOUNT, MAX_AMOUNT),2) 
     transactions = []
     for i in range(num_transactions):
-        transaction = generate_transaction(user_name)
+        transaction = generate_transaction(user_name, BALANCE)
         transactions.append(transaction)
+        BALANCE = BALANCE + transaction['amount']
     return transactions
 
 # Generate some sample transactions and output them in JSON format
 if __name__ == '__main__':
-    transactions = generate_transactions('Zyad', 1)
-    json_data = json.dumps(transactions, indent=4)
+    for account in ACCOUNTS:
+        transactions = generate_transactions(account['name'], 50)
+        json_data = json.dumps(transactions, indent=4)
+    
     print(json_data)
 
 
-# import json
-# import jsonschema
-
-# # Load the JSON file
-# with open('/home/zyad/Desktop/transaction-data-zyad.json', 'r') as f:
-#     data = json.load(f)
-
-# # Extract the schema
-# schema = jsonschema.Draft7Validator.schema(data)
-
-# # Print the schema
-# print(json.dumps(schema, indent=4))
