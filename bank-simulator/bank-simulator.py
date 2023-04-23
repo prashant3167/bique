@@ -8,12 +8,13 @@ import uuid
 ACCOUNTS = []
 MIN_AMOUNT = 1000.0
 MAX_AMOUNT = 100000.0
-start_date = datetime(2023, 3, 1)
+start_date = datetime(2023, 1, 1)
 end_date = datetime(2023, 3, 31)
 BANK = 'Revolut'
 
+print(os.getcwd())
 home_dir = os.path.expanduser('~')
-file_path = os.path.join(home_dir, 'Desktop/upc/big-data-management/project/bique/accounts.json')
+file_path = os.path.join(os.getcwd(), 'accounts.json')
 
 # Collecting the accounts belonging to the specific bank
 with open(file_path, 'r') as f:
@@ -84,12 +85,33 @@ def generate_transactions(user_name, num_transactions):
         BALANCE = BALANCE + transaction['amount']
     return transactions
 
+
+
+import requests
+import json
+reqUrl = "http://10.4.41.51:8000/ingest/bank"
+
+headersList = {
+ "Accept": "*/*",
+ "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+ "Content-Type": "application/json" 
+}
+
+def send_requests(data):
+    for j,i in enumerate(data):
+        print(j)
+        payload = json.dumps(i)
+        response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
+        print(response.text)
+
 # Generate some sample transactions and output them in JSON format
+
 if __name__ == '__main__':
     for account in ACCOUNTS:
-        transactions = generate_transactions(account['name'], 50)
+        transactions = generate_transactions(account['name'], 20000)
+        send_requests(transactions)
         json_data = json.dumps(transactions, indent=4)
     
-    print(json_data)
+    # print(json_data)
 
 
