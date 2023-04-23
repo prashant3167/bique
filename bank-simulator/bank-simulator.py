@@ -8,9 +8,9 @@ import uuid
 ACCOUNTS = []
 MIN_AMOUNT = 1000.0
 MAX_AMOUNT = 100000.0
-start_date = datetime(2023, 1, 1)
+start_date = datetime(2022, 1, 1)
 end_date = datetime(2023, 3, 31)
-BANK = 'Revolut'
+BANK = 'BNP PARIBAS'
 
 print(os.getcwd())
 home_dir = os.path.expanduser('~')
@@ -99,16 +99,16 @@ headersList = {
 
 def send_requests(data):
     for j,i in enumerate(data):
-        print(j)
+
         payload = json.dumps(i)
         response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
-        print(response.text)
+        # print(response.text)
 
 # Generate some sample transactions and output them in JSON format
 
 if __name__ == '__main__':
     for account in ACCOUNTS:
-        transactions = generate_transactions(account['name'], 20000)
+        transactions = generate_transactions(account['name'], 1234)
         send_requests(transactions)
         json_data = json.dumps(transactions, indent=4)
     
