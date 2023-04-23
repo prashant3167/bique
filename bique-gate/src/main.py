@@ -1,6 +1,7 @@
 """Main entry module for flask app acting bridge between third party application and kafka
 """
 import toml
+
 # from auth_utils import multi_auth
 from flask import current_app
 from flask import Flask
@@ -20,7 +21,6 @@ db = Database()
 app.config.from_file("config.toml", load=toml.load)
 url_topic_mapping = {}
 with app.app_context():
-    KAFKA_REST_URL = current_app.config["KAFKA_REST_URL"]
     FLASK_SERVICE_PORT = current_app.config["FLASK_SERVICE_PORT"]
     config = current_app.config
 if "URL_MAPPING" in config:

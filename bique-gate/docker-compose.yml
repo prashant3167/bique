@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   bique-gate:
+    container_name: bique-gate
     image: bique-gate
     build:
       context: .

@@ -1,6 +1,10 @@
 
-KAFKA_REST_URL = "dp_kafka_rest_dev.internal.dev.licious.app"
 FLASK_SERVICE_PORT = 8000
+
+[Mongo]
+host = "10.4.41.51"
+user = "bdm"
+passsword = "bdm"
 
 [[URL_MAPPING]]
 route = "/ingest/bank"
@@ -9,7 +13,7 @@ topic="transactions"
 endpoint = "gate"
 auth = "Token"
 token_head = "X-AUTH"
-token_key = "BRANCH_TOKEN"
+token_key = "BT_TOKEN"
 
 [[URL_MAPPING]]
 route = "/ingest/advsior"
@@ -17,5 +21,15 @@ method = "POST"
 topic="advisors"
 endpoint = "gate"
 auth= "Basic"
-user_env = "CT_USER"
-pass_env = "CT_PASS"
+user_env = "BT_USER"
+pass_env = "BT_PASS"
+
+
+[[URL_MAPPING]]
+route = "/create/user"
+method = "POST"
+topic="users"
+endpoint = "gate"
+auth= "Basic"
+user_env = "BT_USER"
+pass_env = "BT_PASS"
