@@ -6,7 +6,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 22181:2181
+      - 2181:2181
   
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -27,6 +27,7 @@ services:
       dockerfile: connect.Dockerfile
     ports:
       - "35000:35000"
+      - "8083:8083"
     hostname: connect
     container_name: connect
     depends_on:
@@ -39,12 +40,12 @@ services:
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
       CONNECT_REST_PORT: 8083
       CONNECT_GROUP_ID: connect-cluster-group
-      CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
+      CONNECT_CONFIG_STORAGE_TOPIC: docker-connecttest-configs
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
-      CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
+      CONNECT_OFFSET_STORAGE_TOPIC: docker-connecttest-offsets
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
+      CONNECT_STATUS_STORAGE_TOPIC: docker-connecttest-status
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -67,6 +68,7 @@ services:
       SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: PLAINTEXT
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_CONFIG_CLEANUP_POLICY: compact
 
   # curl -X POST \
   #    -H "Content-Type: application/json" \
@@ -76,6 +78,7 @@ services:
   #        "connector.class":"com.mongodb.kafka.connect.MongoSourceConnector",
   #        "connection.uri":"mongodb://bdm:bdm@10.4.41.51:27017/?replicaSet=rs0",
   #        "database":"bique",
+  #          "snapshot.mode:initial",
   #        "collection":"advisors"
   #        }
   #    }
