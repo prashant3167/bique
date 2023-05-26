@@ -19,32 +19,39 @@ data_schema = StructType(fields=[
     )
 ])
 
+# spark = SparkSession.builder \
+#           .master("local[*]") \
+#           .appName("My APP") \
+#           .config('spark.jars.packages', 'org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.1') \
+#           .getOrCreate()
+
 spark = SparkSession.builder \
-          .master("local[*]") \
-          .appName("My APP") \
-          .getOrCreate()
+    .appName("PySparkExample") \
+    .config('spark.jars.packages', 'org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.1') \
+    .getOrCreate()
 
 # Define the Kafka broker address and topic(s)
-kafka_bootstrap_servers = "localhost:9092"
+kafka_bootstrap_servers = "localhost:29092"
 kafka_topic = "bique.advisors"
 
+
+df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", kafka_bootstrap_servers).option("subscribe", kafka_topic).load()
 # Read data from Kafka
-df = spark \
-    .read \
-    .format("kafka") \
-    .option("kafka.bootstrap.servers", kafka_bootstrap_servers) \
-    .option("subscribe", kafka_topic) \
-    .load()
+# df = spark \
+#     .readStream \
+#     .format("kafka") \
+#     .option("kafka.bootstrap.servers", kafka_bootstrap_servers) \
+#     .option("subscribe", kafka_topic).load()
 
 # Deserialize the Kafka JSON values with the schema
-df = df.select(
-    "username", 
-    "date",
-    explode("transactions").alias("transactionsExplode")
-).select("username","date","transactionsExplode.*")
+# df = df.withColumn("value", df["value"].cast("array"))  # Assuming it should be an array
+# df = df.select(
+#     explode("value").alias("transactionsExplode")
+# )
 
+# df.show(truncate=False)
 # Show the deserialized data
-df.show()
+# df.show()
 
 # Print the deserialized data on the console
 query = df.writeStream \
