@@ -1,7 +1,10 @@
 import pyspark
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StringType, MapType
 from pyspark.sql.functions import explode
+import json
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, ArrayType
+from pyspark.sql.functions import udf, col,from_json
 
 # Define the schema for deserializing JSON data
 data_schema = StructType(fields=[
@@ -35,7 +38,7 @@ kafka_bootstrap_servers = "localhost:29092"
 kafka_topic = "bique.advisors"
 
 
-df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", kafka_bootstrap_servers).option("subscribe", kafka_topic).load()
+df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", kafka_bootstrap_servers).option("startingOffsets", "earliest").option("subscribe", kafka_topic).load()
 # Read data from Kafka
 # df = spark \
 #     .readStream \
@@ -53,14 +56,64 @@ df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", kafka_bo
 # Show the deserialized data
 # df.show()
 
+# df = df.withColumn("value", df["value"].cast("string"))  # Assuming data is in JSON format
+# df = df.withColumn("value_dict", udf(lambda x: json.loads(x), MapType(StringType(), StringType()))(df["value"]))
+
+# df.show(truncate=False)
 # Print the deserialized data on the console
-query = df.writeStream \
+# query = df.writeStream \
+#     .outputMode("append") \
+#     .format("console") \
+#     .start()
+# udf_parse_json = udf(lambda x: json.loads(x), MapType(StringType(), StringType()))
+# df = df.withColumn("value_dict", udf_parse_json(df["value"]))
+# df = df.selectExpr("CAST(value AS STRING)") \
+#     .select(json.loads("value").alias("data")) \
+#     .select("data.*")
+# decode_binary = udf(lambda value: value.decode('utf-8'), StringType())
+
+# # Apply the UDF on the 'value' column
+# df = df.select(decode_binary("value").alias("decoded_value"))
+
+# # Continue with the remaining transformations
+# df = df.selectExpr("CAST(decoded_value AS STRING)") \
+#     .select(json.loads("decoded_value").alias("data")) \
+#     .select("data.*")
+
+decode_binary = udf(lambda value: value.decode('utf-8'), StringType())
+
+# Apply the UDF on the 'value' column
+df = df.select(decode_binary(col("value")).alias("decoded_value")).select(from_json(col("decoded_value"), "struct<username:string,date:string>").alias("data")).select("data.*")
+# df = df.selectExpr("CAST(decoded_value AS STRING)").select(from_json(col("decoded_value"), "struct<username:string,date:string,transactions:array<struct<id:int,category:string,datetime:string,amount:double>>>").alias("data")).select("data.*")
+# df = df.selectExpr("CAST(value AS STRING)").select(from_json(col("value"), "struct<username:string,date:string,transactions:array<struct<id:int,category:string,datetime:string,amount:double>>>").alias("data")).select("data.*")
+# Continue with the remaining transformations
+# df = df.selectExpr("CAST(decoded_value AS STRING)")
+# df.show()
+    # .select("decoded_value.*")
+output_path = "/Users/Licious/project/bique/temp"
+# output_df = df.writeStream \
+#     .outputMode("append") \
+#     .format("memory") \
+#     .queryName("output_table") \
+#     .start()
+import time
+    # .trigger(processingTim÷e="10 seconds") \
+output_df = df.writeStream \
     .outputMode("append") \
-    .format("console") \
-    .start()
+    .format("parquet") \
+    .option("checkpointLocation", "/Users/Licious/project/bique/checkpoint"+ "/" + str(int(time.time()))) \
+    .trigger(processingTime="60 seconds") \
+    .start(output_path + "/" + str(int(time.time())))
+    # .option("path", output_path + "/" + str(int(time.time()))) \
+# output_df.awaitTermination()
+
+output_df.awaitTermination()
+output_df = spark.sql("SELECT * FROM output_table")
+
+output_df.show()
 
 # Wait for the query to finish
-query.awaitTermination()
+# query.awaitTermination()
 
 # Save the DataFrame to an HDFS path
 # hdfs_path = "hdfs://10.4.41.51:27000/usr/bdm/t.parquet"
@@ -71,4 +124,4 @@ query.awaitTermination()
 #     .save(hdfs_path, user = "bdm")
 
 # Stop the SparkSession
-# spark.stop()
+spark.stop()
