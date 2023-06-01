@@ -4,7 +4,7 @@ import toml
 
 # from auth_utils import multi_auth
 from flask import current_app
-from flask import Flask
+from flask import Flask,jsonify
 from flask import request
 from paste.translogger import TransLogger
 from utils import map_url_topic
@@ -49,6 +49,25 @@ def check_health():
     # send_to_bique(bique_REST_URL, "test_kakfa_gate_health", check_data)
     return "bique-rest-proxy connection is up"
 
+@app.route("/get_transactions")
+def get_transactions():
+    """View used for checking connectivity between bique-gate and bique-rest-proxy
+
+    Returns:
+        [Response]: Response of the request
+    """
+    user = request.args.get('user_id')
+    data = db.get_account(user)
+    transaction = db.get_transactions(data)
+    print(transaction)
+    response = jsonify(transaction)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    # db.get_transactions([{'source': 'ES25ANSP48014967799833'}, {'source': 'ES86EHAN74451586919070'}])
+    # print(data)
+    return response
+    # check_data = {"records": [{"key": "test_bique_key", "value": "test_bique_value"}]}
+    # # send_to_bique(bique_REST_URL, "test_kakfa_gate_health", check_data)
+    # return "bique-rest-proxy connection is up"
 
 @app.endpoint("gate")
 # @multi_auth.login_required

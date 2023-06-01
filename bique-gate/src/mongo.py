@@ -17,7 +17,7 @@ class Database:
 
     def connect(self):
         self.connect = MongoClient(
-            f"mongodb://{self.username}:{urllib.parse.quote(self.password)}@{self.host}:27017/"
+            f"mongodb://{self.username}:{urllib.parse.quote(self.password)}@{self.host}:27017/bique?authMechanism=DEFAULT&directConnection=true"
         )
         self.bucket = self.connect[self.db]
 
@@ -35,6 +35,18 @@ class Database:
     def get_user(self, id):
         try:
             return self.bucket["users"].find({"id": id})[0]
+        except:
+            return None
+    
+    def get_account(self, id):
+        try:
+            return [{"source": i["iban"]} for i in self.bucket["users"].find({"id": id})[0]["accounts"]]
+        except:
+            return None
+
+    def get_transactions(self, accounts):
+        try:
+            return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1,"sourcebank":1, "amount":1, "transactionInformation": 1, "date":1}).sort([("date", -1)]).limit(10))
         except:
             return None
 
