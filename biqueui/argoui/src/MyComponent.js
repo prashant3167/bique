@@ -55,7 +55,7 @@ const MyComponent = () => {
   const handleButtonClick = () => {
     setUserId(selectedUserId);
     // history.push('/another-page');
-    navigate('/tables');
+    navigate('/transactions');
   };
 
   return (

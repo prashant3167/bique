@@ -8,8 +8,8 @@ const useUserIdCheck = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId && location.pathname !== '/test') {
-      navigate('/test'); // Navigate to the page where userId can be set
+    if (!userId && location.pathname !== '/login') {
+      navigate('/login'); // Navigate to the page where userId can be set
     }
   }, [userId, location, navigate]);
 };

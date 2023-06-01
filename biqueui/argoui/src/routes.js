@@ -76,9 +76,9 @@ const routes = [
   },
   {
     type: "route",
-    name: "test",
-    key: "test",
-    route: "/test",
+    name: "login",
+    key: "login",
+    route: "/login",
     // icon: <ArgonBox component="i" color="success" fontSize="14px" className="ni ni-credit-card" />,
     component: <MyPage />,
   }
