@@ -8,7 +8,7 @@ import uuid
 ACCOUNTS = []
 MIN_AMOUNT = 1000.0
 MAX_AMOUNT = 100000.0
-start_date = datetime(2022, 1, 1)
+start_date = datetime(2015, 1, 1)
 end_date = datetime(2023, 3, 31)
 # BANK = 'BNP PARIBAS'
 
@@ -29,11 +29,11 @@ for entry in all_accounts:
         iban_value = account['iban']
         amount_value = account.get('amount', None)  # If 'amount' key doesn't exist, return None
         accounts_dict[iban_value] = amount_value
-        last_tr[iban_value] = datetime(2022, 1, 1)
+        last_tr[iban_value] = datetime(2019, 1, 1)
     result_dict[id_value] = accounts_dict
 
 # Print the resulting dictionary
-print(result_dict)
+# print(result_dict)
 
 
 # Print the final JSON data
@@ -59,9 +59,11 @@ def generate_transaction(user_name,account,bank):
     balance = result_dict[user_name][account]
     transaction['id'] = str(uuid.uuid4())
     delta = end_date - start_date
-    random_second = random.randint(60, 2000)
+    random_second = random.randint(10, 300)
     tr_date = last_tr[account] + timedelta(minutes=random_second)
     last_tr[account] = tr_date
+    transaction['source'] = account
+    transaction['username'] = user_name
     transaction['date'] = str(tr_date)
     transaction['bookingDateTime'] = transaction['date']
     transaction['valueDateTime'] = str(tr_date + timedelta(hours=6))
@@ -140,7 +142,6 @@ headersList = {
 
 def send_requests(data):
     for j,i in enumerate(data):
-
         payload = json.dumps(i)
         response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
         # print(response.text)
@@ -150,16 +151,18 @@ def send_requests(data):
 try:
     if __name__ == '__main__':
         # for account in ACCOUNTS:
-        for i in range(1000):
+        for i in range(20000):
             individual_person = random.choice(all_accounts)
             # print(individual_data)
             individual_account = random.choice(individual_person["accounts"])
-            transactions = generate_transactions(individual_person["id"],individual_account, 20)
+            transactions = generate_transactions(individual_person["id"],individual_account, 100)
             
             # print(transactions)
             send_requests(transactions)
-            json_data = json.dumps(transactions, indent=4)
-            # print(json_data)
+            # json_data = json.dumps(transactions, indent=4)
+            # from pprint import pprint
+            # pprint(json_data)
+            # input()
 except KeyboardInterrupt:
     final_json = []
     for entry in all_accounts:
@@ -187,7 +190,11 @@ except KeyboardInterrupt:
 
     # Convert final JSON to string
     final_json_str = json.dumps(final_json, indent=4)
-    print(final_json_str)
+    with open("final_accounts.json", "w+") as f:
+        f.write(final_json_str)
+    # print(final_json_str)
+    print('Last transaction')
+    print(last_tr)
     print("Ctrl+C pressed. Exiting...")
         
     # print(json_data)
@@ -220,5 +227,8 @@ for entry in all_accounts:
 
 # Convert final JSON to string
 final_json_str = json.dumps(final_json, indent=4)
-print(final_json_str)
+with open("final_accounts.json", "w+") as f:
+    f.write(final_json_str)
+# print(final_json_str)
+print('Last transaction')
 print(last_tr)
