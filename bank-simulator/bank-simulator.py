@@ -157,7 +157,7 @@ try:
             transactions = generate_transactions(individual_person["id"],individual_account, 20)
             
             # print(transactions)
-            # send_requests(transactions)
+            send_requests(transactions)
             json_data = json.dumps(transactions, indent=4)
             # print(json_data)
 except KeyboardInterrupt:
