@@ -46,7 +46,7 @@ class Database:
 
     def get_transactions(self, accounts):
         try:
-            return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1,"sourcebank":1, "amount":1, "transactionInformation": 1, "date":1}).sort([("date", -1)]).limit(10))
+            return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1, "amount":1, "transactionInformation": 1, "date":1, "proprietaryBankTransactionCode.issuer":1}).sort([("date", -1)]).limit(10))
         except:
             return None
 

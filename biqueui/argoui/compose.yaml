@@ -1,0 +1,6 @@
+
+services:
+  frontend:
+    image: 91018cbe8f9d
+    container_name: frontend
+    ports: "80:3000"
