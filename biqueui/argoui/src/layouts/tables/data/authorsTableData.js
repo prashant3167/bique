@@ -82,13 +82,13 @@ const AuthorsTable = () => {
       { name: 'action', align: 'center' },
     ],
     rows: authorsData.map((author) => ({
-      bank: <Author image={author.image} name={author.sourcebank} email={author.transactionInformation[0]} />,
+      bank: <Author image={author.image} name={author.proprietaryBankTransactionCode.issuer} email={author.transactionInformation[0]} />,
       id: <Function job={author.id} org={author.amount} />,
       "source bank": (
         <ArgonBadge
           variant="gradient"
-          badgeContent={author.sourcebank}
-          color={author.sourcebank === 'BNP PARIBAS' ? 'success' : 'secondary'}
+          badgeContent={author.proprietaryBankTransactionCode.issuer}
+          color={author.proprietaryBankTransactionCode.issuer === 'BNP PARIBAS' ? 'success' : 'secondary'}
           size="xs"
           container
         />

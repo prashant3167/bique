@@ -127,3 +127,29 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.vscode/settings.json
+.gitignore
+.metals/metals.mv.db
+.metals/.reports/metals/r_absolute-path_1685480298345
+.metals/.reports/metals/r_absolute-path_1685482185577
+.metals/.reports/metals/r_absolute-path_1685482590132
+.metals/.reports/metals/r_absolute-path_1685484323760
+biqueui/argoui/.metals/metals.lock.db
+biqueui/argoui/.metals/metals.mv.db
+transaction-data-rishika.json
+transaction-data-zyad.json
+test.py
+sim.py
+test.csv
+phone.csv
+temp/.DS_Store
+data_ingest/docker-compose.yml
+.DS_Store
+biqueui/argoui/.metals/metals.lock.db
+biqueui/argoui/.metals/metals.mv.db
+data_ingest/docker-compose.yml
+biqueui/argoui/.metals/metals.lock.db
+biqueui/argoui/.metals/metals.mv.db
+biqueui/argoui/.metals/metals.mv.db
+biqueui/argoui/.metals/metals.mv.db
+create_users.py
