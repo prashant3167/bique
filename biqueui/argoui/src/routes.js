@@ -53,7 +53,7 @@ const routes = [
     name: "Dashboard",
     key: "dashboard",
     route: "/dashboard",
-    icon: <ArgonBox component="i" color="primary" fontSize="14px" className="ni ni-tv-2" />,
+    icon: <ArgonBox component="i" color="primary" fontSize="14px" className="ni ni-chart-pie-35" />,
     component: <Dashboard />,
   },
   {
@@ -62,7 +62,7 @@ const routes = [
     key: "Transactions",
     route: "/Transactions",
     icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
+      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-money-coins" />
     ),
     component: <Tables />,
   },
@@ -79,7 +79,7 @@ const routes = [
     name: "login",
     key: "login",
     route: "/login",
-    // icon: <ArgonBox component="i" color="success" fontSize="14px" className="ni ni-credit-card" />,
+    icon: <ArgonBox component="i" color="success" fontSize="14px" className="ni ni-circle-08" />,
     component: <MyPage />,
   }
   // {

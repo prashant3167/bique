@@ -1,76 +1,86 @@
-// // MyComponent.js
-// import React, { useContext } from 'react';
-// import { UserContext } from './UserContext';
-
-// const MyComponent = () => {
-//   const { userId, setUserId } = useContext(UserContext);
-
-//   // Use the userId and setUserId as needed
-
-//   return (
-//     <div>
-//       <p>User ID: {userId}</p>
-//       <button onClick={() => setUserId(123)}>Set User ID</button>
-//     </div>
-//   );
-// };
-
-// export default MyComponent;
-
-
 import React, { useContext, useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom'; // Import useHistory from react-router-dom
+import './MyComponent.scss'; // Path to your CSS file
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { UserContext } from './UserContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TableContainer from "@mui/material/TableContainer";
 
 
-
 const MyComponent = () => {
-  // const history = useHistory(); // Get the history object
+  const [open, setOpen] = useState(true);
   const { userId, setUserId } = useContext(UserContext);
   const [selectedUserId, setSelectedUserId] = useState('');
-  const [dropdownOptions, setDropdownOptions] = useState([]); // State to hold dropdown options
+  const [dropdownOptions, setDropdownOptions] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the JSON file and extract the desired value
     fetch('accounts.json')
       .then((response) => response.json())
       .then((data) => {
-        // Assuming the JSON file contains an array of user IDs
-        console.log(data);
-        setDropdownOptions(data); // Set the dropdown options with the user IDs from the JSON data
+        setDropdownOptions(data);
       })
       .catch((error) => {
         console.error('Error fetching JSON file:', error);
       });
   }, []);
 
-  const handleSelectionChange = (e) => {
-    setSelectedUserId(e.target.value);
+  const handleChange = (event) => {
+    setSelectedUserId(event.target.value);
   };
 
-  const handleButtonClick = () => {
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
     setUserId(selectedUserId);
-    // history.push('/another-page');
-    navigate('/transactions');
+    navigate('/Transactions');
   };
 
   return (
-    <TableContainer>
-      <p>User ID: {userId}</p>
-      <select value={selectedUserId} onChange={handleSelectionChange}>
-        <option value="">Select User ID</option>
-        {dropdownOptions.map((option) => (
-          <option key={option.name} value={option.id}>
-            {option.name}
-          </option>
-        ))}
-      </select>
-      <button onClick={handleButtonClick}>Set User ID</button>
-    </TableContainer>
+    <div>
+      {/* <div>{userId}</div> */}
+      {/* <Button onClick={handleClickOpen}>Open select dialog</Button> */}
+      <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
+        <DialogTitle>Select User</DialogTitle>
+        <DialogContent>
+          <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel htmlFor="demo-dialog-native">User</InputLabel>
+              <Select
+                native
+                value={selectedUserId}
+                onChange={handleChange}
+                input={<OutlinedInput label="selectedUserId" id="demo-dialog-native" />}
+              >
+                <option aria-label="None" value="" />
+                {dropdownOptions.map((option) => (
+                  <option key={option.name} value={option.id}>
+                    {option.name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Ok</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 };
 

@@ -24,11 +24,12 @@
     "@testing-library/user-event": "14.4.3",
     "chart.js": "3.9.1",
     "chroma-js": "2.4.2",
-    "prop-types": "15.8.1",
-    "react": "18.2.0",
+    "node-sass": "^9.0.0",
+    "prop-types": "^15.8.1",
+    "react": ">=16.8.0",
     "react-chartjs-2": "3.0.4",
     "react-countup": "6.4.2",
-    "react-dom": "18.2.0",
+    "react-dom": ">=16.8.0",
     "react-github-btn": "1.4.0",
     "react-perfect-scrollbar": "1.5.8",
     "react-router-dom": "6.11.1",
@@ -68,13 +69,17 @@
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
+    "css-loader": "^6.8.1",
     "eslint": "8.40.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
-    "prettier": "2.8.8"
+    "file-loader": "^6.2.0",
+    "prettier": "2.8.8",
+    "sass-loader": "^13.3.1",
+    "style-loader": "^3.3.3"
   },
   "overrides": {
     "svgo": "3.0.2"

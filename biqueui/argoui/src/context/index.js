@@ -75,7 +75,7 @@ function ArgonControllerProvider({ children }) {
     fixedNavbar: false,
     openConfigurator: false,
     direction: "ltr",
-    layout: "dashboard",
+    layout: "login",
     darkMode: false,
   };
 

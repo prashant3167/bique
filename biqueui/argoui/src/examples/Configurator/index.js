@@ -73,9 +73,9 @@ function Configurator() {
         px={3}
       >
         <ArgonBox>
-          <ArgonTypography variant="h5">Argon Configurator</ArgonTypography>
+          <ArgonTypography variant="h5">Dashboard Configurator</ArgonTypography>
           <ArgonTypography variant="body2" color="text">
-            See our dashboard options.
+            Change it to your comfort
           </ArgonTypography>
         </ArgonBox>
 
@@ -187,7 +187,7 @@ function Configurator() {
           <Switch checked={darkMode} onChange={handleDarkMode} />
         </ArgonBox>
 
-        <ArgonBox mt={5} mb={2}>
+        {/* <ArgonBox mt={5} mb={2}>
           <ArgonBox mb={2}>
             <ArgonButton
               component={Link}
@@ -234,14 +234,14 @@ function Configurator() {
           >
             Star
           </GitHubButton>
-        </ArgonBox>
-        <ArgonBox mt={3} textAlign="center">
+        </ArgonBox> */}
+        {/* <ArgonBox mt={3} textAlign="center">
           <ArgonBox mb={0.5}>
             <ArgonTypography variant="h6">Thank you for sharing!</ArgonTypography>
-          </ArgonBox>
+          </ArgonBox> */}
 
-          <ArgonBox display="flex" justifyContent="center">
-            <ArgonBox mr={1.5}>
+          {/* <ArgonBox display="flex" justifyContent="center"> */}
+            {/* <ArgonBox mr={1.5}>
               <ArgonButton
                 component={Link}
                 href="//twitter.com/intent/tweet?text=Check%20Argon%20Dashboard%202%20PRO%20MUI%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23react%20%mui&url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fargon-dashboard-material-ui"
@@ -263,8 +263,8 @@ function Configurator() {
               <FacebookIcon />
               &nbsp; Share
             </ArgonButton>
-          </ArgonBox>
-        </ArgonBox>
+          </ArgonBox> */}
+        {/* </ArgonBox> */}
       </ArgonBox>
     </ConfiguratorRoot>
   );

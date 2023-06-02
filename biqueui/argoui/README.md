@@ -43,17 +43,22 @@ Let us know your thoughts below. And good luck with development!
 
 ## Table of Contents
 
-- [Versions](#versions)
-- [Demo](#demo)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [File Structure](#file-structure)
-- [Browser Support](#browser-support)
-- [Resources](#resources)
-- [Reporting Issues](#reporting-issues)
-- [Technical Support or Questions](#technical-support-or-questions)
-- [Licensing](#licensing)
-- [Useful Links](#useful-links)
+- [Argon Dashboard 2 MUI ](#argon-dashboard-2-mui-)
+      - [Special thanks](#special-thanks)
+  - [Table of Contents](#table-of-contents)
+  - [Versions](#versions)
+  - [Demo](#demo)
+  - [Quick start](#quick-start)
+  - [Terminal Commands](#terminal-commands)
+  - [Documentation](#documentation)
+    - [What's included](#whats-included)
+  - [Browser Support](#browser-support)
+  - [Resources](#resources)
+  - [Reporting Issues](#reporting-issues)
+  - [Technical Support or Questions](#technical-support-or-questions)
+  - [Licensing](#licensing)
+  - [Useful Links](#useful-links)
+        - [Social Media](#social-media)
 
 ## Versions
 
@@ -175,7 +180,7 @@ At present, we officially aim to support the last two versions of the following 
 
 - [Live Preview](https://demos.creative-tim.com/argon-dashboard-material-ui/#/dashboard?ref=readme-admui)
 - [Download Page](https://www.creative-tim.com/product/argon-dashboard-material-ui?ref=readme-admui)
-- Documentation is [here](https://www.creative-tim.com/learning-lab/material-ui/overview/argon-dashboard/?ref=readme-admui)
+- Documentation is [here](https://www.creative-tim.com/learning-lab/material-ui/overview/argon-dashboard/?ref=rea   dme-admui)
 - [License Agreement](https://www.creative-tim.com/license?ref=readme-admui)
 - [Support](https://www.creative-tim.com/contact-us?ref=readme-admui)
 - Issues: [Github Issues Page](https://github.com/creativetimofficial/argon-dashboard-material-ui/issues)

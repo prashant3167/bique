@@ -8,7 +8,7 @@ import MyComponent from './MyComponent';
 const MyPage = () => {
   return (
     <PageLayout >
-      <h1>My Page</h1>
+      {/* <h1>My Page</h1> */}
       <MyComponent />
     </PageLayout>
   );

@@ -1,0 +1,141 @@
+// @font-face {
+//   font-family: "VisbyCF-Light";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Light.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Light.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Light.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Light.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Light.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+// @font-face {
+//   font-family: "VisbyCF-Bold";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Bold.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Bold.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Bold.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Bold.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Bold.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+// @font-face {
+//   font-family: "VisbyCF-Medium";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Medium.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Medium.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Medium.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Medium.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Medium.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+// @font-face {
+//   font-family: "VisbyCF-Thin";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Thin.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Thin.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Thin.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Thin.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Thin.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+// @font-face {
+//   font-family: "VisbyCF-DemiBold";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-DemiBold.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-DemiBold.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-DemiBold.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-DemiBold.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-DemiBold.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+// @font-face {
+//   font-family: "VisbyCF-ExtraBold";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-ExtraBold.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-ExtraBold.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-ExtraBold.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-ExtraBold.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-ExtraBold.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+// @font-face {
+//   font-family: "VisbyCF-Heavy";
+//   src: url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Heavy.eot?#iefix") format("embedded-opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Heavy.otf") format("opentype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Heavy.woff") format("woff"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Heavy.ttf") format("truetype"), url("powtoon-new-static.s3.amazonaws.com/webfonts/Visby/VisbyCF-Heavy.svg") format("svg");
+//   font-weight: normal;
+//   font-style: normal; }
+
+
+
+h1 {
+  font-family: VisbyCF-Light;
+}
+
+
+
+.selectbox {
+  
+   .example-appear {
+    opacity: 0;
+    max-height: 0px; 
+    max-width : 0px; 
+    overflow: hidden;    
+   }
+  .example-appear.example-appear-active {
+    max-height: 300px;
+    max-width : 720px; 
+    opacity: 1;
+    transition: opacity 0.4s ease, max-height 1s ease, max-width 0.5s ease ;
+    
+   }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+  .select_list {   
+    z-index: 2;    
+    width : 720px;  
+    box-shadow: 0px 0px 2px rgba(1, 1, 1, 0.3);  
+    .option {   
+      height: 36px; 
+      padding: 0px;
+      margin: 0px;
+      border-bottom: 1px solid #d9dcdf; 
+   
+      &:hover {
+        background: #d9dcdf;
+      }
+      p {
+        font-family: VisbyCF-Light;
+        color: #687078;
+        display : inline-block;
+        margin: 0px;
+        padding-left: 16px;
+        padding-top: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+
+
+  .select_input {
+    z-index: 1;
+    width: 440px;
+    height: 36px;
+    border: 1px solid #c9ced3;
+    border-bottom: 2px solid #687078;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    box-sizing: border-box;
+
+    &:before {   
+      /* use !important to prevent issues with browser extensions     that change fonts */
+      content: "\e906";
+      font-family: 'icomoon' !important;
+      speak: none;
+      font-size: 36px;
+      color: #1A8CC5;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;  
+      position: absolute;
+      right: 10px;
+      top: -1px;     
+    } 
+    p {
+      padding-left: 10px;
+      padding-top: 5px;
+      font-family: VisbyCF-bold;
+      color: #687179;
+      margin: 0;
+    }
+  }
+
+
+
+/* Close Main .selectBox */
+}  

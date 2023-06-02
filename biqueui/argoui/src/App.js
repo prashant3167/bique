@@ -49,8 +49,8 @@ import routes from "routes";
 import { useArgonController, setMiniSidenav, setOpenConfigurator } from "context";
 
 // Images
-import brand from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
+import brand from "assets/images/bique_white.png";
+import brandDark from "assets/images/bique_black.png";
 
 // Icon Fonts
 import "assets/css/nucleo-icons.css";
@@ -146,16 +146,16 @@ export default function App() {
   );
 
   return direction === "rtl" ? (
-    
+    <UserProvider>
     <CacheProvider value={rtlCache}>
-      <UserProvider>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+      {/* <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}> */}
+      <ThemeProvider theme={themeDarkRTL}>
         <CssBaseline />
         {layout === "dashboard" && (
           <>
             <Sidenav
               color={sidenavColor}
-              brand={darkSidenav || darkMode ? brand : brandDark}
+              brand={darkSidenav || brandDark}
               brandName="Bique"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
@@ -171,8 +171,9 @@ export default function App() {
           <Route path="*" element={<Navigate to="/dashboard" />} />
         </Routes>
       </ThemeProvider>
-      </UserProvider>
     </CacheProvider>
+    </UserProvider>
+
   ) : (
     <UserProvider>
     <ThemeProvider theme={darkMode ? themeDark : theme}>

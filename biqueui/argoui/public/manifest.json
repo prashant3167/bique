@@ -1,9 +1,9 @@
 {
-  "short_name": "Argon Dashboard 2",
-  "name": "Argon Dashboard 2 MUI",
+  "short_name": "Bique",
+  "name": "Bique",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": ".png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     }
