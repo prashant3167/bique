@@ -22,16 +22,16 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     
-  transactions:
-    build:
-      context: .
-      dockerfile: kafka.Dockerfile
-    depends_on:
-      - kafka
-    environment:
-      - PYTHONPATH=/app
-    ports:
-      - 8000:8000
+  # transactions:
+  #   build:
+  #     context: .
+  #     dockerfile: kafka.Dockerfile
+  #   depends_on:
+  #     - kafka
+  #   environment:
+  #     - PYTHONPATH=/app
+  #   ports:
+  #     - 8000:8000
     # extra_hosts:
     #   - "seed:10.4.41.51"
 
