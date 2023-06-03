@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+biqueui/argoui/node_modules/
+*DS_STORE
+.metals
+.vscode
+biqueui/argoui/package-lock.json
+
+transaction-data*
