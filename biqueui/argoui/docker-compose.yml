@@ -1,0 +1,9 @@
+version: '3'
+services:
+  frontend:
+    image: 91294ef69831
+    #build:
+    #  context: .
+    container_name: frontend
+    ports:
+      - "80:80"
