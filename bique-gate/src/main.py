@@ -13,10 +13,22 @@ from utils import send_to_kafka
 from waitress import serve
 import logging
 from pprint import pprint
+import pandas as pd
 from mongo import Database
 
 app = Flask(__name__)
 db = Database()
+import pyarrow as pa
+import pyarrow.parquet as pq
+# hdfs = pa.fs.HadoopFileSystem('10.4.41.51', port=27000)
+hdfs = pa.hdfs.connect('10.4.41.51', port=27000)
+
+
+def get_data(path):
+    dataset = pq.ParquetDataset(f'/user/bdm/exploited_zone/aggregations/{path}', filesystem=hdfs)
+    table = dataset.read()
+    df = table.to_pandas()
+    return df
 
 app.config.from_file("config.toml", load=toml.load)
 url_topic_mapping = {}
@@ -69,6 +81,45 @@ def get_transactions():
     # check_data = {"records": [{"key": "test_bique_key", "value": "test_bique_value"}]}
     # # send_to_bique(bique_REST_URL, "test_kakfa_gate_health", check_data)
     # return "bique-rest-proxy connection is up"
+
+
+@app.route("/get_category")
+def get_monthly_category():
+    """View used for checking connectivity between bique-gate and bique-rest-proxy
+
+    Returns:
+        [Response]: Response of the request
+    """
+    user = request.args.get('user_id')
+    category = request.args.get('category')
+    data = db.get_account(user)
+    final = []
+    for i in data:
+        temp_df = get_data(f"monthYearCategoryAmount/fullDocument_source={i['source']}")
+        if category!="" or category!=None:
+            temp_df = temp_df[temp_df["transactionCategory"]==category]
+        final.append(temp_df)
+    df = pd.concat(final)
+    df['year_month'] = df['fullDocument_year']*100+ df['fullDocument_month']
+    data=df.groupby(['year_month'])['TotalAmountByYearMonth'].sum()
+    data = {
+    "labels": data.index.tolist(),
+    "datasets": [
+        {
+        "label": f"{category.upper()} TREND",
+        "color": "info",
+        "data": data.tolist(),
+        },
+    ],
+    }
+    response = jsonify(data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    
+
+        
+    print(df)
+
 
 @app.endpoint("gate")
 # @multi_auth.login_required
