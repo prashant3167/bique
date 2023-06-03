@@ -30,6 +30,10 @@ import DetailedStatisticsCard from "examples/Cards/StatisticsCards/DetailedStati
 import SalesTable from "examples/Tables/SalesTable";
 import CategoriesList from "examples/Lists/CategoriesList";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
+import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
+
+import MonthcategoryChart from "bique_components/MonthCategoryChart";
+
 
 // Argon Dashboard 2 MUI base styles
 import typography from "assets/theme/base/typography";
@@ -41,9 +45,62 @@ import Slider from "layouts/dashboard/components/Slider";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import salesTableData from "layouts/dashboard/data/salesTableData";
 import categoriesListData from "layouts/dashboard/data/categoriesListData";
+import useUserIdCheck from 'useUserIdCheck';
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const types = [
+  "groceries",
+  "entertainment",
+  "shopping",
+  "utilities",
+  "travel",
+  "food delivery",
+  "transfer",
+  "income",
+  "refund",
+  "other",
+];
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 function Default() {
+  useUserIdCheck();
   const { size } = typography;
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [chartData, setChartData] = useState(null);
+
+  useEffect(() => {
+    // Function to fetch chart data from the API based on selected options
+    const fetchChartData = async () => {
+      try {
+        const response = await axios.get(`/api/chart-data?type=${selectedType}&month=${selectedMonth}&year=${selectedYear}`);
+        setChartData(response.data);
+      } catch (error) {
+        console.error('Error fetching chart data:', error);
+      }
+    };
+
+    if (selectedType && selectedMonth && selectedYear) {
+      fetchChartData();
+    }
+  }, [selectedType, selectedMonth, selectedYear]);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -83,7 +140,23 @@ function Default() {
           </Grid>
         </Grid>
         <Grid container spacing={3} mb={3}>
-          {/* <Grid item xs={12} lg={7}>
+      {/* <Grid item xs={12} lg={7}>
+        <GradientLineChart
+          title="Sales Overview"
+          description=""
+          chart={gradientLineChartData}
+        />        
+      </Grid> */}
+      <Grid item xs={12} lg={7}>
+        <MonthcategoryChart
+          title="Monthly Spending Trending on different categories"
+          description=""
+          // chart={gradientLineChartData}
+        />        
+      </Grid>
+    </Grid>
+        <Grid container spacing={3} mb={3}>
+          <Grid item xs={12} lg={7}>
             <GradientLineChart
               title="Sales Overview"
               description={
@@ -101,9 +174,20 @@ function Default() {
               }
               chart={gradientLineChartData}
             />
-          </Grid> */}
-          <Grid item xs={12} lg={5}>
-            <Slider />
+          </Grid>
+           <Grid item xs={12} lg={5}>
+            {/* <Slider /> */}
+            <VerticalBarChart
+  title="Vertical Bar Chart"
+  chart={{
+    labels: ["16-20", "21-25", "26-30", "31-36", "36-42", "42+"],
+    datasets: [{
+      label: "Sales by age",
+      color: "dark",
+      data: [15, 20, 12, 60, 20, 15],
+    }],
+  }}
+/>
           </Grid>
         </Grid>
         <Grid container spacing={3}>

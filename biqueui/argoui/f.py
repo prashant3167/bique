@@ -67,5 +67,23 @@ def get_authors():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
+@app.route('/monthly', methods=['GET'])
+def get_month():
+    data = {
+  "labels": [1],
+  "datasets": [
+    {
+      "label": "Mobile apps",
+      "color": "info",
+      "data": [50, 40, 300, 220, 500, 250, 400, 230, 500],
+    },
+  ],
+}
+    response = jsonify(data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    return data
+
 if __name__ == '__main__':
     app.run()
