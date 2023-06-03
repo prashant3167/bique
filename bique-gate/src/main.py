@@ -57,8 +57,9 @@ def get_transactions():
         [Response]: Response of the request
     """
     user = request.args.get('user_id')
+    page = int(request.args.get('page', 1)) 
     data = db.get_account(user)
-    transaction = db.get_transactions(data)
+    transaction = db.get_transactions(data,page)
     print(transaction)
     response = jsonify(transaction)
     response.headers.add('Access-Control-Allow-Origin', '*')

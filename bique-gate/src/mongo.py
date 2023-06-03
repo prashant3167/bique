@@ -44,9 +44,9 @@ class Database:
         except:
             return None
 
-    def get_transactions(self, accounts):
+    def get_transactions(self, accounts, page=1):
         try:
-            return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1, "amount":1, "transactionInformation": 1, "date":1, "proprietaryBankTransactionCode.issuer":1}).sort([("date", -1)]).limit(10))
+            return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1, "amount":1, "transactionInformation": 1, "date":1, "proprietaryBankTransactionCode.issuer":1}).sort([("date", -1)]).limit(10).skip(10*(page-1)))
         except:
             return None
 
