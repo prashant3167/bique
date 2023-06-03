@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import ArgonBox from 'components/ArgonBox';
 import ArgonTypography from 'components/ArgonTypography';
 import ArgonAvatar from 'components/ArgonAvatar';
 import ArgonBadge from 'components/ArgonBadge';
-import team2 from 'assets/images/team-2.jpg';
-import team3 from 'assets/images/team-3.jpg';
-import team4 from 'assets/images/team-4.jpg';
-import Table from "examples/Tables/Table"
+import Table from 'examples/Tables/Table';
 import { UserContext } from 'UserContext';
-
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Unstable_Grid2';
 
 function Author({ image, name, email }) {
+  const formattedImage = image.replace(/ /g, '_');
   return (
     <ArgonBox display="flex" alignItems="center" px={1} py={0.5}>
       <ArgonBox mr={2}>
-        <ArgonAvatar src={image} alt={name} size="sm" variant="rounded" />
+        <ArgonAvatar src={`${process.env.PUBLIC_URL}/${formattedImage}.png`} alt={name} size="sm" variant="rounded" />
       </ArgonBox>
       <ArgonBox display="flex" flexDirection="column">
         <ArgonTypography variant="button" fontWeight="medium">
@@ -55,22 +55,47 @@ Function.propTypes = {
 
 const AuthorsTable = () => {
   const [authorsData, setAuthorsData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(true);
   const { userId, setUserId } = React.useContext(UserContext);
-  console.log('User ID:', userId);
+  const tableContainerRef = useRef(null);
+
   useEffect(() => {
-    // Fetch data from the API
     const fetchData = async () => {
       try {
-        const response = await fetch('http://10.4.41.51:8000/get_transactions?user_id='+userId);
+        const response = await fetch(`http://10.4.41.51:8000/get_transactions?user_id=${userId}&page=${pageNumber}`);
         const data = await response.json();
-        console.log(data);
-        setAuthorsData(data);
+        setAuthorsData((prevData) => [...prevData, ...data]);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
+  }, [pageNumber]);
+
+  const handleScroll = () => {
+    const element = tableContainerRef.current;
+    if (element.scrollTop + element.clientHeight === element.scrollHeight) {
+      loadNextPage();
+    }
+  };
+
+  const loadNextPage = () => {
+    setPageNumber((prevPageNumber) => prevPageNumber + 1);
+  };
+
+  useEffect(() => {
+    const element = tableContainerRef.current;
+    if (element) {
+      element.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+      if (element) {
+        element.removeEventListener('scroll', handleScroll);
+      }
+    };
   }, []);
 
   const authorsTableData = {
@@ -79,16 +104,17 @@ const AuthorsTable = () => {
       { name: 'id', align: 'left' },
       { name: 'source bank', align: 'center' },
       { name: 'Transaction date', align: 'center' },
+      { name: 'Income/Spent', align: 'center' },
       { name: 'action', align: 'center' },
     ],
     rows: authorsData.map((author) => ({
-      bank: <Author image={author.image} name={author.proprietaryBankTransactionCode.issuer} email={author.transactionInformation[0]} />,
+      bank: <Author image={author.transactionInformation[0]} name={author.proprietaryBankTransactionCode.issuer} email={author.transactionInformation[0]} />,
       id: <Function job={author.id} org={author.amount} />,
       "source bank": (
         <ArgonBadge
           variant="gradient"
-          badgeContent={author.proprietaryBankTransactionCode.issuer}
-          color={author.proprietaryBankTransactionCode.issuer === 'BNP PARIBAS' ? 'success' : 'secondary'}
+          badgeContent={author.transactionInformation[0]}
+          color={author.transactionInformation[0] === "income" || author.transactionInformation[0] === "refund" ? 'success' : 'secondary'}
           size="xs"
           container
         />
@@ -96,6 +122,11 @@ const AuthorsTable = () => {
       "Transaction date": (
         <ArgonTypography variant="caption" color="secondary" fontWeight="medium">
           {author.date}
+        </ArgonTypography>
+      ),
+      "Income/Spent": (
+        <ArgonTypography variant="caption" color="secondary" fontWeight="medium">
+          {author.amount > 0 ? author.amount : -1 * author.amount}
         </ArgonTypography>
       ),
       action: (
@@ -115,12 +146,15 @@ const AuthorsTable = () => {
   return (
     <div>
       {authorsTableData.rows && authorsTableData.rows.length > 0 ? (
-        // Render your table using the authorsTableData
-        <div>
-         <Table columns={authorsTableData.columns} rows={authorsTableData.rows} />
+        <div
+          ref={tableContainerRef}
+          style={{ height: '400px', overflow: 'auto' }}
+          onScroll={handleScroll}
+        >
+          <Table columns={authorsTableData.columns} rows={authorsTableData.rows} />
+          {loading && <div>Loading...</div>}
         </div>
       ) : (
-        // Render a loading state or an empty state if no data is available
         <div>Loading...</div>
       )}
     </div>

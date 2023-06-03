@@ -34,13 +34,36 @@ import gradientChartLine from "assets/theme/functions/gradientChartLine";
 // GradientLineChart configurations
 import configs from "examples/Charts/LineCharts/GradientLineChart/configs";
 
+// Date test
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+
+const today = dayjs();
+const yesterday = dayjs().subtract(1, 'day');
+const todayStartOfTheDay = today.startOf('day');
+
 // Argon Dashboard 2 MUI base styles
 import colors from "assets/theme/base/colors";
+const types = [
+  "groceries",
+  "entertainment",
+  "shopping",
+  "utilities",
+  "travel",
+  "food delivery",
+  "transfer",
+  "income",
+  "refund",
+  "other",
+];
 
 function GradientLineChart({ title, description, height, chart }) {
   const chartRef = useRef(null);
   const [chartData, setChartData] = useState({});
   const { data, options } = chartData;
+  const [selectedType, setSelectedType] = useState('');
 
   useEffect(() => {
     const chartDatasets = chart.datasets
@@ -73,6 +96,24 @@ function GradientLineChart({ title, description, height, chart }) {
               <ArgonTypography variant="h6">{title}</ArgonTypography>
             </ArgonBox>
           )}
+          <ArgonBox mb={1}>
+          <label htmlFor="type">Type:</label>
+          <select
+            id="type"
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+          >
+            <option value="">Select Type</option>
+            {types.map((type) => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+        </ArgonBox>
+        <ArgonBox mb={1}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker label={'"month" and "year"'} views={['month', 'year']} disableFuture />
+        </LocalizationProvider>
+        </ArgonBox>
           <ArgonBox mb={2}>
             <ArgonTypography component="div" variant="button" fontWeight="regular" color="text">
               {description}
