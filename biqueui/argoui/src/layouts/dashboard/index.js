@@ -32,6 +32,8 @@ import CategoriesList from "examples/Lists/CategoriesList";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 
+import MonthcategoryChart from "bique_components/MonthCategoryChart";
+
 
 // Argon Dashboard 2 MUI base styles
 import typography from "assets/theme/base/typography";
@@ -138,44 +140,19 @@ function Default() {
           </Grid>
         </Grid>
         <Grid container spacing={3} mb={3}>
-      <Grid item xs={12} lg={7}>
+      {/* <Grid item xs={12} lg={7}>
         <GradientLineChart
           title="Sales Overview"
           description=""
           chart={gradientLineChartData}
         />        
-      </Grid>
-      <Grid item xs={12} lg={5}>
-        
-        <div>
-          <label htmlFor="month">Month:</label>
-          <select
-            id="month"
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-          >
-            <option value="">Select Month</option>
-            <option value="">Select Type</option>
-            {months.map((type) => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-            {/* Render dropdown options for months */}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="year">Year:</label>
-          <select
-            id="year"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
-          >
-            <option value="">Select Year</option>
-            {months.map((type) => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-            {/* Render dropdown options for years */}
-          </select>
-        </div>
+      </Grid> */}
+      <Grid item xs={12} lg={7}>
+        <MonthcategoryChart
+          title="Monthly Spending Trending on different categories"
+          description=""
+          // chart={gradientLineChartData}
+        />        
       </Grid>
     </Grid>
         <Grid container spacing={3} mb={3}>

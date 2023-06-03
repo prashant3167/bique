@@ -43,22 +43,26 @@ const MyComponent = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleOk = () => {
     setOpen(false);
     setUserId(selectedUserId);
     navigate('/Transactions');
   };
 
+  const handleClose = () => {
+    setOpen(true);
+    setSelectedUserId("");
+  };
   return (
     <div>
       {/* <div>{userId}</div> */}
       {/* <Button onClick={handleClickOpen}>Open select dialog</Button> */}
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle>Select User</DialogTitle>
+        <DialogTitle>Login</DialogTitle>
         <DialogContent>
           <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel htmlFor="demo-dialog-native">User</InputLabel>
+              <InputLabel htmlFor="demo-dialog-native"></InputLabel>
               <Select
                 native
                 value={selectedUserId}
@@ -77,7 +81,7 @@ const MyComponent = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
+          <Button onClick={handleOk}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>

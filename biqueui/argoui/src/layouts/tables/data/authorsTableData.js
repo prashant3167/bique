@@ -148,7 +148,7 @@ const AuthorsTable = () => {
       {authorsTableData.rows && authorsTableData.rows.length > 0 ? (
         <div
           ref={tableContainerRef}
-          style={{ height: '400px', overflow: 'auto' }}
+          style={{ height: '70vh', overflow: 'auto' }}
           onScroll={handleScroll}
         >
           <Table columns={authorsTableData.columns} rows={authorsTableData.rows} />
