@@ -26,7 +26,7 @@ def load_node_advisors(session):
 
 def load_relation_users_advisors(session):
     session.run(
-            """LOAD CSV WITH HEADERS FROM 'file:///mappings.csv' AS line
+            """LOAD CSV WITH HEADERS FROM 'file:///mapping.csv' AS line
                 MATCH (user:Users {id: line.user_id})
                 WITH user, line
                 MATCH (advisor:Advisors {id: line.advisor_id})
