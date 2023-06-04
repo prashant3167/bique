@@ -34,7 +34,6 @@ def base():
     Returns:
         [Response]: Response of the request
     """
-    print("vgfjn")
     return "welcome to bique-gate"
 
 

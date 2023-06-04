@@ -84,6 +84,7 @@ function Default() {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [chartData, setChartData] = useState(null);
+  const [transaction, setTransaction] = useState({spend: 213,income:323, totaltransaction:434});
 
   useEffect(() => {
     // Function to fetch chart data from the API based on selected options
@@ -109,7 +110,7 @@ function Default() {
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
               title="Money Spent in Month"
-              count="$53,000"
+              count={"€" +transaction.spend}
               icon={{ color: "info", component: <i className="ni ni-money-coins" /> }}
               // percentage={{ color: "success", count: "+55%", text: "since yesterday" }}
             />
@@ -117,7 +118,7 @@ function Default() {
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
               title="Safe to spend"
-              count="2,300"
+              count={"€" +transaction.income}
               icon={{ color: "error", component: <i className="ni ni-world" /> }}
               percentage={{ color: "success", count: "+3%", text: "since last week" }}
             />
@@ -125,7 +126,7 @@ function Default() {
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
               title="new clients"
-              count="+3,462"
+              count={"€" +transaction.income}
               icon={{ color: "success", component: <i className="ni ni-paper-diploma" /> }}
               percentage={{ color: "error", count: "-2%", text: "since last quarter" }}
             />
@@ -154,6 +155,20 @@ function Default() {
           // chart={gradientLineChartData}
         />        
       </Grid>
+      <Grid item xs={12} lg={5}>
+            {/* <Slider /> */}
+            <VerticalBarChart
+  title="Vertical Bar Chart"
+  chart={{
+    labels: ["16-20", "21-25", "26-30", "31-36", "36-42", "42+"],
+    datasets: [{
+      label: "Sales by age",
+      color: "dark",
+      data: [15, 20, 12, 60, 20, 15],
+    }],
+  }}
+/>
+          </Grid>
     </Grid>
         <Grid container spacing={3} mb={3}>
           <Grid item xs={12} lg={7}>
@@ -175,20 +190,7 @@ function Default() {
               chart={gradientLineChartData}
             />
           </Grid>
-           <Grid item xs={12} lg={5}>
-            {/* <Slider /> */}
-            <VerticalBarChart
-  title="Vertical Bar Chart"
-  chart={{
-    labels: ["16-20", "21-25", "26-30", "31-36", "36-42", "42+"],
-    datasets: [{
-      label: "Sales by age",
-      color: "dark",
-      data: [15, 20, 12, 60, 20, 15],
-    }],
-  }}
-/>
-          </Grid>
+          
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
