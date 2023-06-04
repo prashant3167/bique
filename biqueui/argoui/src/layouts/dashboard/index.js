@@ -102,6 +102,23 @@ function Default() {
     }
   }, [selectedType, selectedMonth, selectedYear]);
 
+  useEffect(() => {
+    // Perform some other side effect or subscribe to an event
+    // This effect only runs on component mount
+    const fetchDashboardData = async () => {
+      try {
+        const response = await fetch(`http://10.4.41.51:8000/get_dashboard?user_id=${userId}`);
+        setChartData(response.data);
+      } catch (error) {
+        console.error('Error fetching chart data:', error);
+      }
+    };
+    if (userId) {
+      fetchDashboardData();
+    }
+    
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
