@@ -3,6 +3,7 @@ from pymongo import MongoClient
 # from utils.utils import timeit
 import urllib
 import toml
+from datetime import datetime, _Time
 
 config = toml.load("config.toml")
 
@@ -47,6 +48,74 @@ class Database:
     def get_transactions(self, accounts, page=1):
         try:
             return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1, "amount":1, "transactionInformation": 1, "date":1, "proprietaryBankTransactionCode.issuer":1}).sort([("date", -1)]).limit(10).skip(10*(page-1)))
+        except:
+            return None
+        
+    def get_overview(self, id):
+        try:
+            return list(self.bucket["transactions"].aggregate([
+    {
+        '$addFields': {
+            't_date': {
+                '$dateFromString': {
+                    'dateString': '$valueDateTime', 
+                    'format': '%Y-%m-%d %H:%M:%S'
+                }
+            }
+        }
+    }, {
+        '$match': {
+            'username': '923356081155', 
+            't_date': {
+                '$gte': datetime(2022, 2, 1, 0, 0, 0, tzinfo=timezone.utc), 
+                '$lte': datetime(2023, 6, 1, 0, 0, 0, tzinfo=timezone.utc)
+            }
+        }
+    }, {
+        '$group': {
+            '_id': None, 
+            'totalPositiveAmount': {
+                '$sum': {
+                    '$cond': {
+                        'if': {
+                            '$gt': [
+                                '$amount', 0
+                            ]
+                        }, 
+                        'then': '$amount', 
+                        'else': 0
+                    }
+                }
+            }, 
+            'totalNegativeAmount': {
+                '$sum': {
+                    '$cond': {
+                        'if': {
+                            '$lt': [
+                                '$amount', 0
+                            ]
+                        }, 
+                        'then': '$amount', 
+                        'else': 0
+                    }
+                }
+            }, 
+            'totaltransaction': {
+                '$sum': {
+                    '$cond': {
+                        'if': {
+                            '$lt': [
+                                '$amount', 0
+                            ]
+                        }, 
+                        'then': 1, 
+                        'else': 0
+                    }
+                }
+            }
+        }
+    }
+]))
         except:
             return None
 
