@@ -46,8 +46,9 @@ import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData"
 import salesTableData from "layouts/dashboard/data/salesTableData";
 import categoriesListData from "layouts/dashboard/data/categoriesListData";
 import useUserIdCheck from 'useUserIdCheck';
+import { UserContext } from 'UserContext';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import axios from 'axios';
 
 const types = [
@@ -85,6 +86,8 @@ function Default() {
   const [selectedYear, setSelectedYear] = useState('');
   const [chartData, setChartData] = useState(null);
   const [transaction, setTransaction] = useState({spend: 213,income:323, totaltransaction:434});
+  const { userId, setUserId } = useContext(UserContext);
+
 
   useEffect(() => {
     // Function to fetch chart data from the API based on selected options
@@ -107,8 +110,9 @@ function Default() {
     // This effect only runs on component mount
     const fetchDashboardData = async () => {
       try {
-        const response = await fetch(`http://10.4.41.51:8000/get_dashboard?user_id=${userId}`);
-        setChartData(response.data);
+        const response = await fetch(`http://localhost:8000/get_dashboard/${userId}`);
+        setTransaction(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching chart data:', error);
       }
