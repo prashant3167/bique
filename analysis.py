@@ -79,8 +79,10 @@ print('After processing all users:')
 
 output_df = pd.DataFrame(predictions.items(), columns=['user', 'amount'])
 
+spark_df = spark.createDataFrame(output_df)
+
 hdfs_path = "hdfs://10.4.41.51:27000/user/bdm/exploited_zone/aggregations/nextPrediction"
 
-output_df.write.format("csv").mode("overwrite").save(hdfs_path, user = "bdm")
+spark_df.write.format("csv").mode("append").save(hdfs_path, user = "bdm")
 
 spark.stop()
