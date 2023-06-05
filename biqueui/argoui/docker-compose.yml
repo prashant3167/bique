@@ -1,7 +1,7 @@
 version: '3'
 services:
   frontend:
-    image: 91294ef69831
+    image: 614699af8d21
     #build:
     #  context: .
     container_name: frontend
