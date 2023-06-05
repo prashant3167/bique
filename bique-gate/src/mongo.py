@@ -3,7 +3,7 @@ from pymongo import MongoClient
 # from utils.utils import timeit
 import urllib
 import toml
-from datetime import datetime, _Time
+from datetime import datetime,timezone
 
 config = toml.load("config.toml")
 
@@ -67,14 +67,14 @@ class Database:
         '$match': {
             'username': '923356081155', 
             't_date': {
-                '$gte': datetime(2022, 2, 1, 0, 0, 0, tzinfo=timezone.utc), 
+                '$gte': datetime(2023, 4, 1, 0, 0, 0, tzinfo=timezone.utc), 
                 '$lte': datetime(2023, 6, 1, 0, 0, 0, tzinfo=timezone.utc)
             }
         }
     }, {
         '$group': {
             '_id': None, 
-            'totalPositiveAmount': {
+            'income': {
                 '$sum': {
                     '$cond': {
                         'if': {
@@ -87,7 +87,7 @@ class Database:
                     }
                 }
             }, 
-            'totalNegativeAmount': {
+            'spend': {
                 '$sum': {
                     '$cond': {
                         'if': {
@@ -115,7 +115,7 @@ class Database:
             }
         }
     }
-]))
+]))[0]
         except:
             return None
 
