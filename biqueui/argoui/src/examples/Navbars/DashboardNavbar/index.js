@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 // react-router components
 import { useLocation, Link } from "react-router-dom";
@@ -36,6 +36,7 @@ import ArgonInput from "components/ArgonInput";
 // Argon Dashboard 2 MUI example components
 import Breadcrumbs from "examples/Breadcrumbs";
 import NotificationItem from "examples/Items/NotificationItem";
+import ArgonAvatar from "components/ArgonAvatar";
 
 // Custom styles for DashboardNavbar
 import {
@@ -46,6 +47,7 @@ import {
   navbarDesktopMenu,
   navbarMobileMenu,
 } from "examples/Navbars/DashboardNavbar/styles";
+import { UserContext } from 'UserContext';
 
 // Argon Dashboard 2 MUI context
 import {
@@ -65,6 +67,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const { userId, setUserId } = useContext(UserContext);
+  const imageUrl = process.env.PUBLIC_URL + userId +".jpg";
+
 
   useEffect(() => {
     // Setting the navbar type
@@ -160,7 +165,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
         </ArgonBox>
         {isMini ? null : (
           <ArgonBox sx={(theme) => navbarRow(theme, { isMini })}>
-            <ArgonBox pr={1}>
+            {/* <ArgonBox pr={1}>
               <ArgonInput
                 placeholder="Type here..."
                 startAdornment={
@@ -169,9 +174,10 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   </Icon>
                 }
               />
-            </ArgonBox>
+            </ArgonBox> */}
+            <ArgonAvatar src={imageUrl} alt="Avatar" size="sm" />
             <ArgonBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
+              {/* <Link to="/authentication/sign-in/basic">
                 <IconButton sx={navbarIconButton} size="small">
                   <Icon
                     sx={({ palette: { dark, white } }) => ({
@@ -188,23 +194,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     Sign in
                   </ArgonTypography>
                 </IconButton>
-              </Link>
-              <IconButton
+              </Link> */}
+              {/* <IconButton
                 size="small"
                 color={light && transparentNavbar ? "white" : "dark"}
                 sx={navbarMobileMenu}
                 onClick={handleMiniSidenav}
               >
                 <Icon>{miniSidenav ? "menu_open" : "menu"}</Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                color={light && transparentNavbar ? "white" : "dark"}
-                sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
-              >
-                <Icon>settings</Icon>
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 size="small"
                 color={light && transparentNavbar ? "white" : "dark"}

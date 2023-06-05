@@ -33,6 +33,8 @@ import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 import VerticalBarChart from "examples/Charts/BarCharts/VerticalBarChart";
 
 import MonthcategoryChart from "bique_components/MonthCategoryChart";
+import CategoryData from "bique_components/Category";
+import TransactionTimeline from "bique_components/Timeline";
 
 
 // Argon Dashboard 2 MUI base styles
@@ -87,6 +89,8 @@ function Default() {
   const [chartData, setChartData] = useState(null);
   const [transaction, setTransaction] = useState({spend: 213,income:323, totaltransaction:434});
   const { userId, setUserId } = useContext(UserContext);
+  const [weekspent, setWeekspent] = useState({label: ["1","2", "3"], data:[1,3,4]});
+
 
 
   useEffect(() => {
@@ -110,15 +114,32 @@ function Default() {
     // This effect only runs on component mount
     const fetchDashboardData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/get_dashboard/${userId}`);
-        setTransaction(response.data);
-        console.log(response.data);
+        const response = await fetch(`http://10.4.41.51:8000/get_dashboard/${userId}`);
+        const data = await response.json();
+        setTransaction(data);
       } catch (error) {
         console.error('Error fetching chart data:', error);
       }
     };
     if (userId) {
       fetchDashboardData();
+    }
+    
+  }, []);
+  useEffect(() => {
+    // Perform some other side effect or subscribe to an event
+    // This effect only runs on component mount
+    const getweekspent = async () => {
+      try {
+        const response = await fetch(`http://10.4.41.51:8000/get_week_status/${userId}`);
+        const data = await response.json();
+        setWeekspent(data);
+      } catch (error) {
+        console.error('Error fetching chart data:', error);
+      }
+    };
+    if (userId) {
+      getweekspent();
     }
     
   }, []);
@@ -132,34 +153,34 @@ function Default() {
             <DetailedStatisticsCard
               title="Money Spent in Month"
               count={"€" +transaction.spend}
-              icon={{ color: "info", component: <i className="ni ni-money-coins" /> }}
+              icon={{ color: "success", component: <i className="ni ni-money-coins" /> }}
               // percentage={{ color: "success", count: "+55%", text: "since yesterday" }}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
-              title="Safe to spend"
+              title="Income in month"
               count={"€" +transaction.income}
               icon={{ color: "error", component: <i className="ni ni-world" /> }}
-              percentage={{ color: "success", count: "+3%", text: "since last week" }}
+              // percentage={{ color: "success", count: "+3%", text: "since last week" }}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
-              title="new clients"
+              title="Predicted Spending"
               count={"€" +transaction.income}
               icon={{ color: "success", component: <i className="ni ni-paper-diploma" /> }}
-              percentage={{ color: "error", count: "-2%", text: "since last quarter" }}
+              // percentage={{ color: "error", count: "-2%", text: "since last quarter" }}
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          {/* <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
               title="sales"
               count="$103,430"
               icon={{ color: "warning", component: <i className="ni ni-cart" /> }}
               percentage={{ color: "success", count: "+5%", text: "than last month" }}
-            />
-          </Grid>
+            /> */}
+          {/* </Grid> */}
         </Grid>
         <Grid container spacing={3} mb={3}>
       {/* <Grid item xs={12} lg={7}>
@@ -179,21 +200,23 @@ function Default() {
       <Grid item xs={12} lg={5}>
             {/* <Slider /> */}
             <VerticalBarChart
-  title="Vertical Bar Chart"
-  chart={{
-    labels: ["16-20", "21-25", "26-30", "31-36", "36-42", "42+"],
-    datasets: [{
-      label: "Sales by age",
-      color: "dark",
-      data: [15, 20, 12, 60, 20, 15],
-    }],
-  }}
-/>
+      title="Weekly Spending"
+      height= "25rem"
+      chart={{
+        labels: weekspent.label,
+        datasets: [{
+          label: "Week Spending",
+          color: "dark",
+          data: weekspent.data,
+        }],
+      }}
+    />
           </Grid>
     </Grid>
         <Grid container spacing={3} mb={3}>
           <Grid item xs={12} lg={7}>
-            <GradientLineChart
+          <CategoryData/>
+            {/* <GradientLineChart
               title="Sales Overview"
               description={
                 <ArgonBox display="flex" alignItems="center">
@@ -209,18 +232,25 @@ function Default() {
                 </ArgonBox>
               }
               chart={gradientLineChartData}
-            />
+            /> */}
+          </Grid>
+          <Grid item xs={12} md={5}>
+          <TransactionTimeline />
+            {/* <SalesTable title="Sales by Country" rows={salesTableData} /> */}
           </Grid>
           
         </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
+        {/* <Grid container spacing={3}>
+        
+           <Grid item xs={12} md={8}>
+          <TransactionTimeline />
             <SalesTable title="Sales by Country" rows={salesTableData} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <CategoriesList title="categories" categories={categoriesListData} />
+          <CategoryData/>
+
           </Grid>
-        </Grid>
+        </Grid> */}
       </ArgonBox>
       {/* <Footer /> */}
     </DashboardLayout>
