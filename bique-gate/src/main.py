@@ -115,10 +115,70 @@ def get_monthly_category():
     response = jsonify(data)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-    
 
-        
-    print(df)
+@app.route('/get_dashboard/<user_id>')
+def get_dashboard(user_id):
+    overview = db.get_overview(user_id)
+    print(overview)
+    response = jsonify(overview)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/get_week_status/<user_id>')
+def get_week_status(user_id):
+    # transaction = db.get_transactions(data,page)
+    # print(transaction)
+    response = jsonify({"label": ["1","2", "3"],"data":[1,3,4]})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/get_month_category/<user_id>')
+def get_month_category(user_id):
+    # transaction = db.get_transactions(data,page)
+    # print(transaction)
+    response = jsonify({"food":"250","grocery":"250","income":"230","clothing":"123","entertainment":"250","other":"250"})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+@app.route('/get_daily_transaction/<user_id>')
+def get_daily_transaction(user_id):
+    # transaction = db.get_transactions(data,page)
+    # print(transaction)
+    data = [
+    {
+        "id": 1,
+        "color": "success",
+        "icon": "notifications",
+        "title": "Spent 200 on grocery",
+        "dateTime": "22 DEC 7:20 PM",
+        "description": "",
+        "badges": ["expenditure","spend"],
+        "lastItem": False
+    },
+    {
+        "id": 2,
+        "color": "error",
+        "icon": "inventory_2",
+        "title": "Transaction failed",
+        "dateTime": "21 DEC 11 PM",
+        "description": "Who knows",
+        "badges": ["Grocery", "#1832412"],
+        "lastItem": False
+    },
+    {
+        "id": 3,
+        "icon": "shopping_cart",
+        "title": "Income 1000 euro",
+        "dateTime": "21 DEC 9:34 PM",
+        "description": "I have no idea",
+        "badges": ["some", "data"],
+        "lastItem": True
+    }
+]
+    response = jsonify(data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 @app.endpoint("gate")
