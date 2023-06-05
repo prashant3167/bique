@@ -20,9 +20,11 @@ spark = SparkSession.builder.appName("Read from HDFS").getOrCreate()
 hdfs_client = KerberosClient('http://10.4.41.51:9870')
 users = hdfs_client.list('/user/bdm/formatted_data/bique.transactions')
 
-predictions = {}
+predictions_dict = []
 
 for user in users:
+    currValues = []
+
     file_path = 'hdfs://10.4.41.51:27000/user/bdm/formatted_data/bique.transactions/'
     file_name = user
     if file_name != '_SUCCESS':
@@ -71,18 +73,21 @@ for user in users:
     # print(f"Mean Absolute Error (MAE): {mae}")
     # print(f"Mean Squared Error (MSE): {mse}")
     # print(f"Root Mean Squared Error (RMSE): {rmse}")
-    
-    predictions[user[20:]] = pred_df['forecast'][-1]
+    currValues.append(user[20:])
+    currValues.append(test_df.index[-1])
+    currValues.append(pred_df['forecast'][-1])
+    predictions_dict.append(currValues)
 
 print('After processing all users:')
-# print(predictions)
+print(predictions_dict)
 
-output_df = pd.DataFrame(predictions.items(), columns=['user', 'amount'])
+output_df = pd.DataFrame(predictions_dict, columns=['fullDocument_source', 'date', 'amount'])
+print(output_df.head())
 
 spark_df = spark.createDataFrame(output_df)
 
-hdfs_path = "hdfs://10.4.41.51:27000/user/bdm/exploited_zone/aggregations/nextPrediction"
+hdfs_path = "hdfs://10.4.41.51:27000/user/bdm/exploited_zone/aggregations/nextPrediction1"
 
-spark_df.write.format("csv").mode("append").save(hdfs_path, user = "bdm")
+spark_df.write.format("csv").mode("append").partitionBy('fullDocument_source').save(hdfs_path, user = "bdm")
 
 spark.stop()
