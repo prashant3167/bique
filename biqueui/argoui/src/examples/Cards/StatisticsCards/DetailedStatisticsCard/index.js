@@ -33,7 +33,7 @@ function DetailedStaticsCard({ bgColor, title, count, percentage, icon, directio
   const { darkMode } = controller;
 
   return (
-    <Card>
+    <Card style={{height:"6rem"}}>
       <ArgonBox
         bgColor={bgColor === "white" && darkMode ? "transparent" : bgColor}
         variant={bgColor === "white" && darkMode ? "contained" : "gradient"}
@@ -122,7 +122,7 @@ function DetailedStaticsCard({ bgColor, title, count, percentage, icon, directio
               </Grid>
             ) : null}
           </Grid>
-          <ArgonTypography
+          {/* <ArgonTypography
             display="flex"
             alignItems="center"
             variant="button"
@@ -139,7 +139,7 @@ function DetailedStaticsCard({ bgColor, title, count, percentage, icon, directio
             >
               {percentage.text}
             </ArgonTypography>
-          </ArgonTypography>
+          </ArgonTypography> */}
         </ArgonBox>
       </ArgonBox>
     </Card>
