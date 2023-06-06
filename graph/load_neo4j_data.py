@@ -20,7 +20,8 @@ def load_node_advisors(session):
                 id: line.id,
                 name: line.name,
                 jobcount: line.jobcount,
-                charge: line.charge
+                charge: line.charge,
+                star: toInteger(1)
         })"""
     )
 

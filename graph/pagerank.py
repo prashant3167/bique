@@ -16,29 +16,38 @@ def print_query_results(records, summary):
         pp.pprint(record.data())
         print()
 
-def create_advisors_average_rating(session):
+def create_advisors_rating(session):
     session.run(
         """MATCH () - [r:consulted] -> (advisor:Advisors)
-            WITH advisor, COALESCE(SUM(r.rating), 1) as total
+            WITH advisor, COALESCE(SUM(r.rating)) as total
             SET advisor.star = toInteger(total)"""
     )
 
-def get_advisor_ranking(session):
-    result = session.run(
-        """MATCH () - [r] -> (advisor:Advisors)
-            WITH advisor, COUNT(r) * advisor.star AS rank
-            ORDER BY rank DESC
-            RETURN advisor.name, rank         
-            LIMIT 25   
-        """
+def query_simulate_pagerank_algorithm(session):
+    print('Dropping the graph from cypher catalog, only if exists')
+    session.run("""CALL gds.graph.drop('pageRankGraph',false);""")
+
+    print('Project the graph')
+    session.run(
+        """CALL gds.graph.project('pageRankGraph', 'Advisors', 'consulted');"""
     )
-    
+
+    print('Running the page rank algorithm for the stored graph')
+    result = session.run(
+        """CALL gds.pageRank.stream('pageRankGraph')
+            YIELD nodeId, score
+            WITH gds.util.asNode(nodeId) AS advisor, score AS score
+            RETURN advisor.name AS advisor_name, ROUND((advisor.star * score), 2) AS advisor_rank
+            ORDER BY advisor_rank DESC LIMIT 5;"""
+    )
     records = list(result)
     summary = result.consume()
     return records, summary
+print('Creating advisors total rating...')
+session.execute_write(create_advisors_rating)
 
-session.execute_write(create_advisors_average_rating)
-records, summary = session.execute_read(get_advisor_ranking)
+print('Use case 1: Finding top consulted advisors...')
+records, summary = session.execute_read(query_simulate_pagerank_algorithm)
 print_query_results(records, summary)
 
 session.close()
