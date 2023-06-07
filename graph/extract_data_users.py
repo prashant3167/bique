@@ -1,36 +1,32 @@
 import csv
 import json
+import random
+import datetime
 
-with open('advisors.json', 'r') as file:
+with open('accounts.json', 'r') as file:
     json_data = json.load(file)
 
-file = open('final_advisors.csv', 'w', newline='')
+file = open('users.csv', 'w', newline='')
 writer = csv.writer(file)
 
 for data in json_data:
     all_data = []
 
-    uid = data["recno"]
-    all_data.append(uid)
+    id = data["id"]
+    all_data.append(id)
 
-    name = data["shortName"]
+    name = data["name"]
     all_data.append(name)
 
-    skills = []
-    if data.get("attrSkills",None):
-        for group in data["attrSkills"]:
-            skills = skills + [i["skill"]["name"] for i in group["skills"]]
-    else:
-        skills = ['groceries','shopping']
-    all_data.append("|".join(skills))
+    # # any rating between 1 to 10
+    # rating = random.randint(1,10)
+    # all_data.append(rating)
 
-    jobs = data["totalJobs"]
-    all_data.append(jobs)
-
-    charge = data["serviceProfiles"][0]["aggregates"]["totalCharge"]
-    all_data.append(charge)
+    # start_date = datetime.date(2018, 1, 1)
+    # end_date = datetime.date(2022, 12, 31)
+    # random_days = random.randint(0, (end_date - start_date).days)
+    # random_date = start_date + datetime.timedelta(days=random_days)
+    # all_data.append(random_date)
 
     writer.writerow(all_data)
-
-
 
