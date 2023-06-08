@@ -15,13 +15,15 @@ import logging
 from pprint import pprint
 import pandas as pd
 from mongo import Database
+from neo4j_helper import Neo4jDataRetriever
 
 app = Flask(__name__)
+
 db = Database()
 import pyarrow as pa
 import pyarrow.parquet as pq
-# hdfs = pa.fs.HadoopFileSystem('10.4.41.51', port=27000)
 hdfs = pa.hdfs.connect('10.4.41.51', port=27000)
+retriever = Neo4jDataRetriever()
 
 
 def get_data(path):
@@ -46,7 +48,6 @@ def base():
     Returns:
         [Response]: Response of the request
     """
-    print("vgfjn")
     return "welcome to bique-gate"
 
 
@@ -72,7 +73,7 @@ def get_transactions():
     page = int(request.args.get('page', 1)) 
     data = db.get_account(user)
     transaction = db.get_transactions(data,page)
-    print(transaction)
+    # print(transaction)
     response = jsonify(transaction)
     response.headers.add('Access-Control-Allow-Origin', '*')
     # db.get_transactions([{'source': 'ES25ANSP48014967799833'}, {'source': 'ES86EHAN74451586919070'}])
@@ -119,27 +120,42 @@ def get_monthly_category():
 @app.route('/get_dashboard/<user_id>')
 def get_dashboard(user_id):
     overview = db.get_overview(user_id)
-    print(overview)
+    overview["prediction"]=20000
     response = jsonify(overview)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/get_week_status/<user_id>')
 def get_week_status(user_id):
-    # transaction = db.get_transactions(data,page)
-    # print(transaction)
-    response = jsonify({"label": ["1","2", "3"],"data":[1,3,4]})
+    data = db.get_account(str(user_id))
+    final = []
+    for i in data:
+        temp_df = get_data(f"weekanalysis/fullDocument_source={i['source']}")
+        data  = temp_df[(temp_df["fullDocument_year"]==2023) & (temp_df["fullDocument_month"]==5)]
+        final.append(data)
+    df = pd.concat(final)
+    data=df.groupby(['monthweek'])['weekanalysis'].sum()
+    data = data.apply(lambda x: x*-1)
+    response = jsonify({"label": data.index.to_list(),"data":data.to_list()})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/get_month_category/<user_id>')
 def get_month_category(user_id):
-    # transaction = db.get_transactions(data,page)
-    # print(transaction)
-    response = jsonify({"food":"250","grocery":"250","income":"230","clothing":"123","entertainment":"250","other":"250"})
+    data = db.get_account(str(user_id))
+    final = []
+    for i in data:
+        temp_df = get_data(f"monthYearCategoryAmount/fullDocument_source={i['source']}")
+        data  = temp_df[(temp_df["fullDocument_year"]==2023) & (temp_df["fullDocument_month"]==5)]
+        final.append(data)
+    df = pd.concat(final)
+    data=df.groupby(['transactionCategory'])['TotalAmountByYearMonth'].sum()
+
+    response = jsonify(data.to_dict())
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+# exploited_zone/aggregations/weekanalysis/fullDocument_source=ES97QOCE75072324547599
 
 @app.route('/get_daily_transaction/<user_id>')
 def get_daily_transaction(user_id):
@@ -171,8 +187,8 @@ def get_daily_transaction(user_id):
         "icon": "shopping_cart",
         "title": "Income 1000 euro",
         "dateTime": "21 DEC 9:34 PM",
-        "description": "I have no idea",
-        "badges": ["some", "data"],
+        "description": "Home Shopping",
+        "badges": ["test", "data"],
         "lastItem": True
     }
 ]
@@ -180,6 +196,22 @@ def get_daily_transaction(user_id):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
+@app.route('/advisors/<user_id>')
+def get_advisors(user_id):
+    data = retriever.retrieve_data(user_id)
+    response = jsonify(data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/predicted_advisors/')
+def get_predicted_advisors():
+    temp_df = get_data(f"advisorRanking")
+    advisors_list = temp_df.apply(lambda row: {'name': row['advisor_name'], 'rank': row['advisor_rank']}, axis=1).tolist()
+
+    response = jsonify(advisors_list)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.endpoint("gate")
 # @multi_auth.login_required

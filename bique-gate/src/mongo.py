@@ -65,9 +65,9 @@ class Database:
         }
     }, {
         '$match': {
-            'username': '923356081155', 
+            'username': str(id), 
             't_date': {
-                '$gte': datetime(2023, 4, 1, 0, 0, 0, tzinfo=timezone.utc), 
+                '$gte': datetime(2023, 5, 1, 0, 0, 0, tzinfo=timezone.utc), 
                 '$lte': datetime(2023, 6, 1, 0, 0, 0, tzinfo=timezone.utc)
             }
         }

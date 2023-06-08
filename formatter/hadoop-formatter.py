@@ -65,7 +65,10 @@ def check_for_topic(topic_name,files):
         # spark_df = spark_df.withColumn('transaction_date', to_date(col('transaction_datetime')))
 
         hdfs_path = f'hdfs://10.4.41.51:27000/user/bdm/formatted_data/{topic_name}'
-        spark_df.write.mode("append").partitionBy('fullDocument_source').parquet(hdfs_path)
+        if topic_name=="bique.transactions":
+            spark_df.write.mode("append").partitionBy('fullDocument_source').parquet(hdfs_path)
+        else:
+            spark_df.write.mode("append").parquet(hdfs_path)
     
 
 
