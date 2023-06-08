@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import TimelineList from "examples/Timeline/TimelineList";
 import TimelineItem from "examples/Timeline/TimelineItem";
+import ArgonBox from "components/ArgonBox";
+
 
 const TransactionTimeline = () => {
   const [timelineData, setTimelineData] = useState([]);
@@ -28,6 +30,7 @@ const TransactionTimeline = () => {
   };
 
   return (
+    <ArgonBox p={2}>
     <TimelineList title="Timeline">
       {timelineData.map((item) => (
         <TimelineItem
@@ -42,6 +45,7 @@ const TransactionTimeline = () => {
         />
       ))}
     </TimelineList>
+    </ArgonBox>
   );
 };
 

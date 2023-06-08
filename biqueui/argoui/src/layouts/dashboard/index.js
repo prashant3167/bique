@@ -167,8 +167,16 @@ function Default() {
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
-              title="Predicted Spending"
-              count={"€" +transaction.totaltransaction}
+              title="Total Transactions"
+              count={transaction.totaltransaction}
+              icon={{ color: "success", component: <i className="ni ni-paper-diploma" /> }}
+              // percentage={{ color: "error", count: "-2%", text: "since last quarter" }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <DetailedStatisticsCard
+              title="Predicted Expeniture"
+              count={transaction.prediction}
               icon={{ color: "success", component: <i className="ni ni-paper-diploma" /> }}
               // percentage={{ color: "error", count: "-2%", text: "since last quarter" }}
             />
