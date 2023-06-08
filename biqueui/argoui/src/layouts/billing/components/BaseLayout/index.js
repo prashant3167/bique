@@ -67,14 +67,14 @@ function BaseLayout({ stickyNavbar, children }) {
       <ArgonBox mt={stickyNavbar ? 3 : 10}>
         <Grid container>
           <Grid item xs={12} sm={8} lg={4}>
-            <AppBar position="static">
+            {/* <AppBar position="static">
               <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
                 <Tab label="Messages" />
                 <Tab label="Social" />
                 <Tab label="Notifications" />
                 <Tab label="Backup" />
               </Tabs>
-            </AppBar>
+            </AppBar> */}
           </Grid>
         </Grid>
         {children}

@@ -24,15 +24,15 @@ import ArgonBox from "components/ArgonBox";
 import ArgonTypography from "components/ArgonTypography";
 import ArgonButton from "components/ArgonButton";
 
-function Transaction({ color, icon, name, description, value }) {
+function Transaction({ name, description, value }) {
   return (
     <ArgonBox key={name} component="li" py={1} pr={2} mb={1}>
       <ArgonBox display="flex" justifyContent="space-between" alignItems="center">
         <ArgonBox display="flex" alignItems="center">
           <ArgonBox mr={2}>
-            <ArgonButton variant="outlined" color={color} size="small" iconOnly circular>
+            {/* <ArgonButton variant="outlined" size="small" iconOnly circular>
               <Icon sx={{ fontWeight: "bold" }}>{icon}</Icon>
-            </ArgonButton>
+            </ArgonButton> */}
           </ArgonBox>
           <ArgonBox display="flex" flexDirection="column">
             <ArgonTypography variant="button" fontWeight="medium" gutterBottom>
@@ -43,7 +43,7 @@ function Transaction({ color, icon, name, description, value }) {
             </ArgonTypography>
           </ArgonBox>
         </ArgonBox>
-        <ArgonTypography variant="button" color={color} fontWeight="medium" textGradient>
+        <ArgonTypography variant="button" fontWeight="medium" textGradient>
           {value}
         </ArgonTypography>
       </ArgonBox>
@@ -53,17 +53,17 @@ function Transaction({ color, icon, name, description, value }) {
 
 // Typechecking props of the Transaction
 Transaction.propTypes = {
-  color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ]).isRequired,
-  icon: PropTypes.node.isRequired,
+  // color: PropTypes.oneOf([
+  //   "primary",
+  //   "secondary",
+  //   "info",
+  //   "success",
+  //   "warning",
+  //   "error",
+  //   "light",
+  //   "dark",
+  // ]).isRequired,
+  // icon: PropTypes.node.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,

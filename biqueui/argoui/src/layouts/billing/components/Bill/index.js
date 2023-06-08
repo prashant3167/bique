@@ -27,7 +27,7 @@ import ArgonButton from "components/ArgonButton";
 // Argon Dashboard 2 MUI contexts
 import { useArgonController } from "context";
 
-function Bill({ name, company, email, vat, noGutter }) {
+function Bill({ name, date, rating, noGutter }) {
   const [controller] = useArgonController();
   const { darkMode } = controller;
 
@@ -63,11 +63,11 @@ function Bill({ name, company, email, vat, noGutter }) {
             mt={{ xs: 2, sm: 0 }}
             ml={{ xs: -1.5, sm: 0 }}
           >
-            <ArgonBox mr={1}>
+            {/* <ArgonBox mr={1}>
               <ArgonButton variant="text" color="error">
                 <Icon>delete</Icon>&nbsp;Delete
               </ArgonButton>
-            </ArgonBox>
+            </ArgonBox> */}
             <ArgonButton variant="text" color="dark">
               <Icon>edit</Icon>&nbsp;Edit
             </ArgonButton>
@@ -75,26 +75,26 @@ function Bill({ name, company, email, vat, noGutter }) {
         </ArgonBox>
         <ArgonBox mb={1} lineHeight={0}>
           <ArgonTypography variant="caption" color="text">
-            Company Name:&nbsp;&nbsp;&nbsp;
+            Date :&nbsp;&nbsp;&nbsp;
             <ArgonTypography variant="caption" fontWeight="medium" textTransform="capitalize">
-              {company}
+              {date}
             </ArgonTypography>
           </ArgonTypography>
         </ArgonBox>
         <ArgonBox mb={1} lineHeight={0}>
           <ArgonTypography variant="caption" color="text">
-            Email Address:&nbsp;&nbsp;&nbsp;
+            Rating:&nbsp;&nbsp;&nbsp;
             <ArgonTypography variant="caption" fontWeight="medium">
-              {email}
+              {rating}
             </ArgonTypography>
           </ArgonTypography>
         </ArgonBox>
-        <ArgonTypography variant="caption" color="text">
+        {/* <ArgonTypography variant="caption" color="text">
           VAT Number:&nbsp;&nbsp;&nbsp;
           <ArgonTypography variant="caption" fontWeight="medium">
             {vat}
           </ArgonTypography>
-        </ArgonTypography>
+        </ArgonTypography> */}
       </ArgonBox>
     </ArgonBox>
   );
@@ -108,9 +108,8 @@ Bill.defaultProps = {
 // Typechecking props for the Bill
 Bill.propTypes = {
   name: PropTypes.string.isRequired,
-  company: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  vat: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  rating: PropTypes.string.isRequired,
   noGutter: PropTypes.bool,
 };
 

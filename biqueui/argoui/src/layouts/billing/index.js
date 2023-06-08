@@ -34,7 +34,7 @@ function Billing() {
   return (
     <BaseLayout stickyNavbar>
       <ArgonBox mt={4}>
-        <ArgonBox mb={3}>
+        {/* <ArgonBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
               <Grid container spacing={3}>
@@ -66,7 +66,7 @@ function Billing() {
               <Invoices />
             </Grid>
           </Grid>
-        </ArgonBox>
+        </ArgonBox> */}
         <ArgonBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={7}>
