@@ -1,5 +1,10 @@
 import pprint
 from session_helper import create_session
+from pyspark.sql import SparkSession
+import pandas as pd
+from datetime import date
+
+spark = SparkSession.builder.appName("Read from HDFS").getOrCreate()
 
 session = create_session()
 
@@ -43,11 +48,24 @@ def query_simulate_pagerank_algorithm(session):
     records = list(result)
     summary = result.consume()
     return records, summary
+
 print('Creating advisors total rating...')
 session.execute_write(create_advisors_rating)
 
 print('Use case 1: Finding top consulted advisors...')
 records, summary = session.execute_read(query_simulate_pagerank_algorithm)
 print_query_results(records, summary)
+
+output_df = pd.DataFrame(records, columns=['advisor_name', 'advisor_rank'])
+output_df['date'] = date.today()
+print(output_df.head())
+
+spark_df = spark.createDataFrame(output_df)
+
+hdfs_path = "hdfs://10.4.41.51:27000/user/bdm/exploited_zone/advisorRanking"
+
+spark_df.write.mode("append").partitionBy('date').parquet(hdfs_path, user = 'bdm')
+
+spark.stop()
 
 session.close()
