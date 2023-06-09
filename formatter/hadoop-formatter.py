@@ -59,10 +59,6 @@ def check_for_topic(topic_name, files):
             spark_df.write.mode("append").partitionBy('fullDocument_source').parquet(hdfs_path)
         else:
             spark_df.write.mode("append").parquet(hdfs_path)
-    
-
-
-
 
 if __name__ == '__main__':
     old_files = []
