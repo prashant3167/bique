@@ -38,6 +38,10 @@ def normalize_json(json_data, parent_key='', separator='_'):
             normalized_data[new_key] = value
     return normalized_data
 
+def archival_zone(dataframe)
+    hdfs_path = f'hdfs://10.4.41.51:27000/user/bdm/formatted_data/archival_data'
+    spark_df.write.mode("append").partitionBy('fullDocument_source').parquet(hdfs_path)
+
 def check_for_topic(topic_name, files):
     data  = []
     spark_df =  None
@@ -48,7 +52,14 @@ def check_for_topic(topic_name, files):
             data.append(normalize_json(json.loads(json.loads(i.decode("utf-8"))['payload'])))
 
         df=pd.json_normalize(data)
-        df = df[df["operationType"]=='insert']
+#         df = df[df["operationType"]=='insert']
+        archival_df = None
+        if topic_name=="bique.transactions":
+            archival_df = df[df["operationType"]=='insert']
+            df = df[df["operationType"]=='insert']
+        if not archival_df.empty:
+            archival_zone(spark.createDataFrame(archival_df))
+           
         if df.empty:
             continue
         spark_df = spark.createDataFrame(df)
