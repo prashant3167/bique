@@ -8,6 +8,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, to_date, to_timestamp
 import argparse
 from time import sleep
+import datetime
 
 # Create an argument parser object
 parser = argparse.ArgumentParser(description='Process a list of arguments.')
@@ -52,6 +53,7 @@ def check_for_topic(topic_name, files):
             data.append(normalize_json(json.loads(json.loads(i.decode("utf-8"))['payload'])))
 
         df=pd.json_normalize(data)
+        df['processed_time'] = datetime.now()
 #         df = df[df["operationType"]=='insert']
         archival_df = None
         if topic_name=="bique.transactions":
