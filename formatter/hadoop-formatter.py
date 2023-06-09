@@ -27,6 +27,7 @@ hdfs_client = KerberosClient('http://10.4.41.51:9870')
 
 
 def normalize_json(json_data, parent_key='', separator='_'):
+    """Normalizer code to flatten all data points without schema."""
     normalized_data = {}
     for key, value in json_data.items():
         new_key = f"{parent_key}{separator}{key}" if parent_key else key
@@ -37,7 +38,7 @@ def normalize_json(json_data, parent_key='', separator='_'):
             normalized_data[new_key] = value
     return normalized_data
 
-def check_for_topic(topic_name,files):
+def check_for_topic(topic_name, files):
     data  = []
     spark_df =  None
     for j in files:
@@ -48,21 +49,10 @@ def check_for_topic(topic_name,files):
 
         df=pd.json_normalize(data)
         df = df[df["operationType"]=='insert']
-        print(df.head())
-        # input()
         if df.empty:
             continue
         spark_df = spark.createDataFrame(df)
-        # if spark_df:
-            
-        #     additonal_dataframe = spark.createDataFrame(df)
-        #     spark_df = spark_df.union(additonal_dataframe)
-        # else:
-        #     spark_df = spark.createDataFrame(df)
-        # spark_df = spark_df.withColumn('transaction_datetime', to_timestamp(col('fullDocument_date'), 'yyyy-MM-dd HH:mm:ss'))
         data = []
-        # # Extract the date from the 'transaction_datetime' column
-        # spark_df = spark_df.withColumn('transaction_date', to_date(col('transaction_datetime')))
 
         hdfs_path = f'hdfs://10.4.41.51:27000/user/bdm/formatted_data/{topic_name}'
         if topic_name=="bique.transactions":
@@ -74,31 +64,13 @@ def check_for_topic(topic_name,files):
 
 
 
-# import pandas as pd
-
-# # Example Pandas DataFrame
-
-# # Create a SparkSession
-
-# # Convert Pandas DataFrame to Spark DataFrame
-
-# # Write Spark DataFrame to HDFS
-# Path(hdfs_path).mkdir(parents=True, exist_ok=True)
-
-# # Stop the SparkSession
-# spark.stop()
-
-
 if __name__ == '__main__':
-    # all_data = 
-    # for value in values:
     old_files = []
     while True:
         for value in topics:
             all_files = hdfs_client.list(f'/user/bdm/data_sink/{value}/partition=0/')
             files = list(set(all_files)-set(old_files))
             check_for_topic(value,files)
-            print(len(files))
             old_files = all_files
         print(f"Sleeping for {args.wait}")
-        sleep(10)
+        sleep(args.wait)
