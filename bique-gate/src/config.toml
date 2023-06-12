@@ -16,7 +16,7 @@ token_head = "X-AUTH"
 token_key = "BT_TOKEN"
 
 [[URL_MAPPING]]
-route = "/ingest/advsior"
+route = "/ingest/advisor"
 method = "POST"
 topic="advisors"
 endpoint = "gate"

@@ -3,6 +3,7 @@ from pymongo import MongoClient
 # from utils.utils import timeit
 import urllib
 import toml
+from datetime import datetime,timezone
 
 config = toml.load("config.toml")
 
@@ -17,7 +18,7 @@ class Database:
 
     def connect(self):
         self.connect = MongoClient(
-            f"mongodb://{self.username}:{urllib.parse.quote(self.password)}@{self.host}:27017/"
+            f"mongodb://{self.username}:{urllib.parse.quote(self.password)}@{self.host}:27017/bique?authMechanism=DEFAULT&directConnection=true"
         )
         self.bucket = self.connect[self.db]
 
@@ -35,6 +36,86 @@ class Database:
     def get_user(self, id):
         try:
             return self.bucket["users"].find({"id": id})[0]
+        except:
+            return None
+    
+    def get_account(self, id):
+        try:
+            return [{"source": i["iban"]} for i in self.bucket["users"].find({"id": id})[0]["accounts"]]
+        except:
+            return None
+
+    def get_transactions(self, accounts, page=1):
+        try:
+            return list(self.bucket["transactions"].find({"$or": accounts},{"_id":0,"id":1, "amount":1, "transactionInformation": 1, "date":1, "proprietaryBankTransactionCode.issuer":1}).sort([("date", -1)]).limit(10).skip(10*(page-1)))
+        except:
+            return None
+        
+    def get_overview(self, id):
+        try:
+            return list(self.bucket["transactions"].aggregate([
+    {
+        '$addFields': {
+            't_date': {
+                '$dateFromString': {
+                    'dateString': '$valueDateTime', 
+                    'format': '%Y-%m-%d %H:%M:%S'
+                }
+            }
+        }
+    }, {
+        '$match': {
+            'username': str(id), 
+            't_date': {
+                '$gte': datetime(2023, 5, 1, 0, 0, 0, tzinfo=timezone.utc), 
+                '$lte': datetime(2023, 6, 1, 0, 0, 0, tzinfo=timezone.utc)
+            }
+        }
+    }, {
+        '$group': {
+            '_id': None, 
+            'income': {
+                '$sum': {
+                    '$cond': {
+                        'if': {
+                            '$gt': [
+                                '$amount', 0
+                            ]
+                        }, 
+                        'then': '$amount', 
+                        'else': 0
+                    }
+                }
+            }, 
+            'spend': {
+                '$sum': {
+                    '$cond': {
+                        'if': {
+                            '$lt': [
+                                '$amount', 0
+                            ]
+                        }, 
+                        'then': '$amount', 
+                        'else': 0
+                    }
+                }
+            }, 
+            'totaltransaction': {
+                '$sum': {
+                    '$cond': {
+                        'if': {
+                            '$lt': [
+                                '$amount', 0
+                            ]
+                        }, 
+                        'then': 1, 
+                        'else': 0
+                    }
+                }
+            }
+        }
+    }
+]))[0]
         except:
             return None
 

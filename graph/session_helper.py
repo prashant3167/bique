@@ -21,5 +21,4 @@ def clean_session(session):
     
     print('Deleting and detaching all the previous nodes in the database.')
     session.execute_write(delete_and_detach_all_nodes)
-
     return session
