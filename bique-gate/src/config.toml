@@ -12,18 +12,30 @@ method = "POST"
 topic="transactions"
 endpoint = "gate"
 auth = "Token"
+primary_key = "id"
 token_head = "X-AUTH"
 token_key = "BT_TOKEN"
 
 [[URL_MAPPING]]
-route = "/ingest/advisor"
+route = "/ingest/advisors"
 method = "POST"
 topic="advisors"
 endpoint = "gate"
 auth= "Basic"
+primary_key = "recno"
 user_env = "BT_USER"
 pass_env = "BT_PASS"
 
+
+[[URL_MAPPING]]
+route = "/ingest/consultation"
+method = "POST"
+topic="consultation"
+endpoint = "gate"
+auth= "Basic"
+primary_key = "id"
+user_env = "BT_USER"
+pass_env = "BT_PASS"
 
 [[URL_MAPPING]]
 route = "/create/user"
@@ -31,5 +43,6 @@ method = "POST"
 topic="users"
 endpoint = "gate"
 auth= "Basic"
+primary_key = "id"
 user_env = "BT_USER"
 pass_env = "BT_PASS"

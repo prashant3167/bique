@@ -22,9 +22,11 @@ class Database:
         )
         self.bucket = self.connect[self.db]
 
-    def insert(self, document, data):
+    def insert_update(self, document, data, primary_key):
         bucket = self.bucket[document]
-        x = bucket.insert_one(data)
+        x = bucket.find_one_and_update({primary_key: data[primary_key]},
+                               {"$set": data},
+                               upsert=True)
         print(x.inserted_id)
 
     def insert_many(self, document, data):

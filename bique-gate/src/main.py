@@ -59,7 +59,6 @@ def check_health():
         [Response]: Response of the request
     """
     check_data = {"records": [{"key": "test_bique_key", "value": "test_bique_value"}]}
-    # send_to_bique(bique_REST_URL, "test_kakfa_gate_health", check_data)
     return "bique-rest-proxy connection is up"
 
 @app.route("/get_transactions")
@@ -73,15 +72,9 @@ def get_transactions():
     page = int(request.args.get('page', 1)) 
     data = db.get_account(user)
     transaction = db.get_transactions(data,page)
-    # print(transaction)
     response = jsonify(transaction)
     response.headers.add('Access-Control-Allow-Origin', '*')
-    # db.get_transactions([{'source': 'ES25ANSP48014967799833'}, {'source': 'ES86EHAN74451586919070'}])
-    # print(data)
     return response
-    # check_data = {"records": [{"key": "test_bique_key", "value": "test_bique_value"}]}
-    # # send_to_bique(bique_REST_URL, "test_kakfa_gate_health", check_data)
-    # return "bique-rest-proxy connection is up"
 
 
 @app.route("/get_category")
@@ -155,12 +148,9 @@ def get_month_category(user_id):
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-# exploited_zone/aggregations/weekanalysis/fullDocument_source=ES97QOCE75072324547599
 
 @app.route('/get_daily_transaction/<user_id>')
 def get_daily_transaction(user_id):
-    # transaction = db.get_transactions(data,page)
-    # print(transaction)
     data = [
     {
         "id": 1,
@@ -227,10 +217,10 @@ def post_bique_branch():
         data = process_data(path, content)
     except KeyError:
         return "content not correct", 406
-    db.insert(url_topic_mapping[path], data)
+    
+    db.insert_update(url_topic_mapping[path], data, url_topic_mapping["primary_key"])
     return "", 201
 
 
 if __name__ == "__main__":
-    # app.run(host="0.0.0.0",port=8000,debug=True)
     serve(TransLogger(app), host="0.0.0.0", port=FLASK_SERVICE_PORT, threads=10)
