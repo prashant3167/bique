@@ -57,4 +57,3 @@ RUN npm install -g serve
 
 # # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["serve", "-s", "build", "-p", "80"]
-

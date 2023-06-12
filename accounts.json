@@ -1,381 +1,428 @@
 [
-   {
-      "name": "Jose Antonio Lorencio Abril",
-      "id": "34655177477",
-      "accounts": [
-         {
-            "iban": "ES13QIUR81022149639616",
-            "aba": "063694547",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Rishika Gupta",
-      "id": "919920866202",
-      "accounts": [
-         {
-            "iban": "ES25ANSP48014967799833",
-            "aba": "108610774",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES86EHAN74451586919070",
-            "aba": "109765149",
-            "bank": "Revolut"
-         }
-      ]
-   },
-   {
-      "name": "Alaa Almutawa",
-      "id": "97333894773",
-      "accounts": [
-         {
-            "iban": "ES03GWNO51408147941807",
-            "aba": "014401750",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES59AAGT22664585788290",
-            "aba": "034071047",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "Ali",
-      "id": "972599283598",
-      "accounts": [
-         {
-            "iban": "ES48ROFG41777104049405",
-            "aba": "115799772",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES02JHOP23942038749660",
-            "aba": "048801177",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Ahmad",
-      "id": "601112289563",
-      "accounts": [
-         {
-            "iban": "ES82BRNV50362515161643",
-            "aba": "108278954",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "You",
-      "id": "8618523459562",
-      "accounts": [
-         {
-            "iban": "ES10CZMY52089344286339",
-            "aba": "110265476",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES45VAET34604305920487",
-            "aba": "072442780",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Mariana",
-      "id": "527774420427",
-      "accounts": [
-         {
-            "iban": "ES38MQAZ97473816310151",
-            "aba": "049071728",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES53NSTK48798834643638",
-            "aba": "014212240",
-            "bank": "Revolut"
-         },
-         {
-            "iban": "ES77NJQE77047041012170",
-            "aba": "109438748",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "Rizwan",
-      "id": "923356081155",
-      "accounts": [
-         {
-            "iban": "ES50PNXR90722758581112",
-            "aba": "044847591",
-            "bank": "Revolut"
-         },
-         {
-            "iban": "ES37LZNC68377459218865",
-            "aba": "097961194",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES15PMJF76077940962764",
-            "aba": "071693983",
-            "bank": "Revolut"
-         }
-      ]
-   },
-   {
-      "name": "Chidiebere",
-      "id": "2349096989688",
-      "accounts": [
-         {
-            "iban": "ES37BTHI66142921389526",
-            "aba": "027636091",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES97QOCE75072324547599",
-            "aba": "066551467",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Koumudi",
-      "id": "94711937271",
-      "accounts": [
-         {
-            "iban": "ES48TVAT92082523971182",
-            "aba": "042754893",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Malaz",
-      "id": "96181838392",
-      "accounts": [
-         {
-            "iban": "ES28XQDZ32700977223703",
-            "aba": "011453387",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Tianheng",
-      "id": "4407856777592",
-      "accounts": [
-         {
-            "iban": "ES40YJZV47112222025735",
-            "aba": "097176507",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Jezuela Gega",
-      "id": "355673879824",
-      "accounts": [
-         {
-            "iban": "ES65OGJR97362838925428",
-            "aba": "055683825",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES20NYZY95100092390963",
-            "aba": "036979451",
-            "bank": "Revolut"
-         },
-         {
-            "iban": "ES54YDKA34088475960103",
-            "aba": "048265357",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Liliia",
-      "id": "79991717339",
-      "accounts": [
-         {
-            "iban": "ES85ASPZ17863114875062",
-            "aba": "127861766",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES96IYEG91874376557670",
-            "aba": "093383815",
-            "bank": "Revolut"
-         }
-      ]
-   },
-   {
-      "name": "Arina",
-      "id": "79037361629",
-      "accounts": [
-         {
-            "iban": "ES60NIFE43775832526006",
-            "aba": "020423573",
-            "bank": "Revolut"
-         },
-         {
-            "iban": "ES07VMCF08045263509013",
-            "aba": "039946083",
-            "bank": "Revolut"
-         }
-      ]
-   },
-   {
-      "name": "Sayyor",
-      "id": "998900144775",
-      "accounts": [
-         {
-            "iban": "ES71NOAJ71220223724423",
-            "aba": "095231101",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "Mirwise Khan",
-      "id": "923318942708",
-      "accounts": [
-         {
-            "iban": "ES18IAHB34005653831616",
-            "aba": "098005457",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES42XHWG72122874552101",
-            "aba": "072319389",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES47KNCP50924250080985",
-            "aba": "035441809",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES90UCJB46821283216081",
-            "aba": "046099208",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "Satria",
-      "id": "6285716186264",
-      "accounts": [
-         {
-            "iban": "ES88CCPI11345836728456",
-            "aba": "108571046",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Isabella",
-      "id": "573022513712",
-      "accounts": [
-         {
-            "iban": "ES51HUSE74479811018646",
-            "aba": "034967229",
-            "bank": "Revolut"
-         }
-      ]
-   },
-   {
-      "name": "Nikola",
-      "id": "381691712999",
-      "accounts": [
-         {
-            "iban": "ES82XTWJ12432219269784",
-            "aba": "120505883",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES18BZVP64089987860702",
-            "aba": "097843539",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES21FMON17941820870111",
-            "aba": "024808026",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   },
-   {
-      "name": "Luis Alfredo",
-      "id": "34671295311",
-      "accounts": [
-         {
-            "iban": "ES06WFGU72983192679063",
-            "aba": "078048010",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES31FXLT47899970226923",
-            "aba": "126770722",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES80VTMK41090431522919",
-            "aba": "100990829",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "Bogdana",
-      "id": "522224464882",
-      "accounts": [
-         {
-            "iban": "ES94MGOX24383485209294",
-            "aba": "031564502",
-            "bank": "BNP PARIBAS"
-         },
-         {
-            "iban": "ES71SGEO34917464726554",
-            "aba": "033738640",
-            "bank": "Revolut"
-         },
-         {
-            "iban": "ES26WZJF60652375702196",
-            "aba": "031087225",
-            "bank": "Revolut"
-         }
-      ]
-   },
-   {
-      "name": "Maren",
-      "id": "381603212015",
-      "accounts": [
-         {
-            "iban": "ES36FCTS64658750643608",
-            "aba": "045830840",
-            "bank": "CAXIFY"
-         },
-         {
-            "iban": "ES17WJIZ77984516215419",
-            "aba": "087136434",
-            "bank": "CAXIFY"
-         }
-      ]
-   },
-   {
-      "name": "Adina",
-      "id": "491746890263",
-      "accounts": [
-         {
-            "iban": "ES07BRTX96146666164355",
-            "aba": "064646837",
-            "bank": "BNP PARIBAS"
-         }
-      ]
-   }
+    {
+        "name": "Jose Antonio Lorencio Abril",
+        "id": "34655177477",
+        "accounts": [
+            {
+                "iban": "ES13QIUR81022149639616",
+                "aba": "063694547",
+                "bank": "BNP PARIBAS",
+                "amount": 5.41999999999133
+            }
+        ]
+    },
+    {
+        "name": "Rishika Gupta",
+        "id": "919920866202",
+        "accounts": [
+            {
+                "iban": "ES25ANSP48014967799833",
+                "aba": "108610774",
+                "bank": "BNP PARIBAS",
+                "amount": 3.229999999983985
+            },
+            {
+                "iban": "ES86EHAN74451586919070",
+                "aba": "109765149",
+                "bank": "Revolut",
+                "amount": 2.6500000000019615
+            }
+        ]
+    },
+    {
+        "name": "Alaa Almutawa",
+        "id": "97333894773",
+        "accounts": [
+            {
+                "iban": "ES03GWNO51408147941807",
+                "aba": "014401750",
+                "bank": "BNP PARIBAS",
+                "amount": 1.779999999990757
+            },
+            {
+                "iban": "ES59AAGT22664585788290",
+                "aba": "034071047",
+                "bank": "CAXIFY",
+                "amount": 57.49000000000461
+            }
+        ]
+    },
+    {
+        "name": "Ali",
+        "id": "972599283598",
+        "accounts": [
+            {
+                "iban": "ES48ROFG41777104049405",
+                "aba": "115799772",
+                "bank": "BNP PARIBAS",
+                "amount": 141.0500000000146
+            },
+            {
+                "iban": "ES02JHOP23942038749660",
+                "aba": "048801177",
+                "bank": "BNP PARIBAS",
+                "amount": -Infinity
+            }
+        ]
+    },
+    {
+        "name": "Ahmad",
+        "id": "601112289563",
+        "accounts": [
+            {
+                "iban": "ES82BRNV50362515161643",
+                "aba": "108278954",
+                "bank": "CAXIFY",
+                "amount": -4.078474500270624e+247
+            }
+        ]
+    },
+    {
+        "name": "You",
+        "id": "8618523459562",
+        "accounts": [
+            {
+                "iban": "ES10CZMY52089344286339",
+                "aba": "110265476",
+                "bank": "CAXIFY",
+                "amount": 77.13999999998046
+            },
+            {
+                "iban": "ES45VAET34604305920487",
+                "aba": "072442780",
+                "bank": "BNP PARIBAS",
+                "amount": -17.289999999994915
+            }
+        ]
+    },
+    {
+        "name": "Mariana",
+        "id": "527774420427",
+        "accounts": [
+            {
+                "iban": "ES38MQAZ97473816310151",
+                "aba": "049071728",
+                "bank": "CAXIFY",
+                "amount": 38.47999999999624
+            },
+            {
+                "iban": "ES53NSTK48798834643638",
+                "aba": "014212240",
+                "bank": "Revolut",
+                "amount": -5.309999999997308
+            },
+            {
+                "iban": "ES77NJQE77047041012170",
+                "aba": "109438748",
+                "bank": "CAXIFY",
+                "amount": 8.060000000035755
+            }
+        ]
+    },
+    {
+        "name": "Rizwan",
+        "id": "923356081155",
+        "accounts": [
+            {
+                "iban": "ES50PNXR90722758581112",
+                "aba": "044847591",
+                "bank": "Revolut",
+                "amount": 21.769999999994056
+            },
+            {
+                "iban": "ES37LZNC68377459218865",
+                "aba": "097961194",
+                "bank": "CAXIFY",
+                "amount": 25.029999999994207
+            },
+            {
+                "iban": "ES15PMJF76077940962764",
+                "aba": "071693983",
+                "bank": "Revolut",
+                "amount": 65.43999999999821
+            }
+        ]
+    },
+    {
+        "name": "Chidiebere",
+        "id": "2349096989688",
+        "accounts": [
+            {
+                "iban": "ES37BTHI66142921389526",
+                "aba": "027636091",
+                "bank": "CAXIFY",
+                "amount": -3.879999999982898
+            },
+            {
+                "iban": "ES97QOCE75072324547599",
+                "aba": "066551467",
+                "bank": "BNP PARIBAS",
+                "amount": 11.320000000009895
+            }
+        ]
+    },
+    {
+        "name": "Koumudi",
+        "id": "94711937271",
+        "accounts": [
+            {
+                "iban": "ES48TVAT92082523971182",
+                "aba": "042754893",
+                "bank": "BNP PARIBAS",
+                "amount": 3.730000000001251
+            }
+        ]
+    },
+    {
+        "name": "Malaz",
+        "id": "96181838392",
+        "accounts": [
+            {
+                "iban": "ES28XQDZ32700977223703",
+                "aba": "011453387",
+                "bank": "BNP PARIBAS",
+                "amount": 102.75999999999043
+            }
+        ]
+    },
+    {
+        "name": "Tianheng",
+        "id": "4407856777592",
+        "accounts": [
+            {
+                "iban": "ES40YJZV47112222025735",
+                "aba": "097176507",
+                "bank": "BNP PARIBAS",
+                "amount": 3.2799999999839002
+            }
+        ]
+    },
+    {
+        "name": "Jezuela Gega",
+        "id": "355673879824",
+        "accounts": [
+            {
+                "iban": "ES65OGJR97362838925428",
+                "aba": "055683825",
+                "bank": "BNP PARIBAS",
+                "amount": 120.16999999999501
+            },
+            {
+                "iban": "ES20NYZY95100092390963",
+                "aba": "036979451",
+                "bank": "Revolut",
+                "amount": 42.95000000000035
+            },
+            {
+                "iban": "ES54YDKA34088475960103",
+                "aba": "048265357",
+                "bank": "BNP PARIBAS",
+                "amount": -0.5900000000079182
+            }
+        ]
+    },
+    {
+        "name": "Liliia",
+        "id": "79991717339",
+        "accounts": [
+            {
+                "iban": "ES85ASPZ17863114875062",
+                "aba": "127861766",
+                "bank": "BNP PARIBAS",
+                "amount": 5.289999999996951
+            },
+            {
+                "iban": "ES96IYEG91874376557670",
+                "aba": "093383815",
+                "bank": "Revolut",
+                "amount": 1.7399999999924913
+            }
+        ]
+    },
+    {
+        "name": "Arina",
+        "id": "79037361629",
+        "accounts": [
+            {
+                "iban": "ES60NIFE43775832526006",
+                "aba": "020423573",
+                "bank": "Revolut",
+                "amount": -6.900000000013203
+            },
+            {
+                "iban": "ES07VMCF08045263509013",
+                "aba": "039946083",
+                "bank": "Revolut",
+                "amount": -9.567015500774393e+213
+            }
+        ]
+    },
+    {
+        "name": "Sayyor",
+        "id": "998900144775",
+        "accounts": [
+            {
+                "iban": "ES71NOAJ71220223724423",
+                "aba": "095231101",
+                "bank": "CAXIFY",
+                "amount": 34.00000000000179
+            }
+        ]
+    },
+    {
+        "name": "Mirwise Khan",
+        "id": "923318942708",
+        "accounts": [
+            {
+                "iban": "ES18IAHB34005653831616",
+                "aba": "098005457",
+                "bank": "BNP PARIBAS",
+                "amount": -11.499999999995161
+            },
+            {
+                "iban": "ES42XHWG72122874552101",
+                "aba": "072319389",
+                "bank": "BNP PARIBAS",
+                "amount": -3.5788602330712235e+89
+            },
+            {
+                "iban": "ES47KNCP50924250080985",
+                "aba": "035441809",
+                "bank": "BNP PARIBAS",
+                "amount": 84.85999999999892
+            },
+            {
+                "iban": "ES90UCJB46821283216081",
+                "aba": "046099208",
+                "bank": "CAXIFY",
+                "amount": 3.059999999998192
+            }
+        ]
+    },
+    {
+        "name": "Satria",
+        "id": "6285716186264",
+        "accounts": [
+            {
+                "iban": "ES88CCPI11345836728456",
+                "aba": "108571046",
+                "bank": "BNP PARIBAS",
+                "amount": 13.570000000003825
+            }
+        ]
+    },
+    {
+        "name": "Isabella",
+        "id": "573022513712",
+        "accounts": [
+            {
+                "iban": "ES51HUSE74479811018646",
+                "aba": "034967229",
+                "bank": "Revolut",
+                "amount": 42.60999999998943
+            }
+        ]
+    },
+    {
+        "name": "Nikola",
+        "id": "381691712999",
+        "accounts": [
+            {
+                "iban": "ES82XTWJ12432219269784",
+                "aba": "120505883",
+                "bank": "BNP PARIBAS",
+                "amount": 11.080000000007878
+            },
+            {
+                "iban": "ES18BZVP64089987860702",
+                "aba": "097843539",
+                "bank": "CAXIFY",
+                "amount": 2.069999999999898
+            },
+            {
+                "iban": "ES21FMON17941820870111",
+                "aba": "024808026",
+                "bank": "BNP PARIBAS",
+                "amount": 18.509999999967086
+            }
+        ]
+    },
+    {
+        "name": "Luis Alfredo",
+        "id": "34671295311",
+        "accounts": [
+            {
+                "iban": "ES06WFGU72983192679063",
+                "aba": "078048010",
+                "bank": "BNP PARIBAS",
+                "amount": -7.339999999981941
+            },
+            {
+                "iban": "ES31FXLT47899970226923",
+                "aba": "126770722",
+                "bank": "CAXIFY",
+                "amount": -0.8099999999699552
+            },
+            {
+                "iban": "ES80VTMK41090431522919",
+                "aba": "100990829",
+                "bank": "CAXIFY",
+                "amount": 7.830000000001942
+            }
+        ]
+    },
+    {
+        "name": "Bogdana",
+        "id": "522224464882",
+        "accounts": [
+            {
+                "iban": "ES94MGOX24383485209294",
+                "aba": "031564502",
+                "bank": "BNP PARIBAS",
+                "amount": 39.2899999999874
+            },
+            {
+                "iban": "ES71SGEO34917464726554",
+                "aba": "033738640",
+                "bank": "Revolut",
+                "amount": 46.9899999999995
+            },
+            {
+                "iban": "ES26WZJF60652375702196",
+                "aba": "031087225",
+                "bank": "Revolut",
+                "amount": 25.41999999999412
+            }
+        ]
+    },
+    {
+        "name": "Maren",
+        "id": "381603212015",
+        "accounts": [
+            {
+                "iban": "ES36FCTS64658750643608",
+                "aba": "045830840",
+                "bank": "CAXIFY",
+                "amount": 72.15000000000127
+            },
+            {
+                "iban": "ES17WJIZ77984516215419",
+                "aba": "087136434",
+                "bank": "CAXIFY",
+                "amount": 29.34000000000014
+            }
+        ]
+    },
+    {
+        "name": "Adina",
+        "id": "491746890263",
+        "accounts": [
+            {
+                "iban": "ES07BRTX96146666164355",
+                "aba": "064646837",
+                "bank": "BNP PARIBAS",
+                "amount": 11.27999999999476
+            }
+        ]
+    }
 ]
